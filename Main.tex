@@ -1,0 +1,88 @@
+% CREATED BY DAVID FRISK, 2016
+
+% IMPORT SETTINGS
+\documentclass[12pt,a4paper,twoside,openright]{report}
+\input{include/settings/Settings}
+
+\input{include/settings/Macros}
+
+\begin{document}
+
+% COVER PAGE, TITLE PAGE AND IMPRINT PAGE
+\pagenumbering{roman}			% Roman numbering (starting with i (one)) until first main chapter
+\input{include/frontmatter/Titlepage}
+
+% ABSTRACT
+\newpage
+\input{include/frontmatter/Abstract}
+
+% ACKNOWLEDGEMENTS
+\newpage
+\input{include/frontmatter/Acknowledgements}
+
+
+% TABLE OF CONT7ENTS
+\newpage
+\tableofcontents
+
+% OTHER FRONTMATTER
+% List of figures (add to table of contents)
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+% List of tables (add to table of contents)
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+
+
+% START OF MAIN DOCUMENT
+\cleardoublepage
+\setcounter{page}{1}
+\pagenumbering{arabic}			% Arabic numbering starting from 1 (one)
+\setlength{\parskip}{0pt plus 1pt}
+
+% INTRODUCTION
+\input{include/Introduction}
+
+% Computer visison theory
+\input{include/Computer_Vision}
+
+% Machine learning theory
+\input{include/Machine_Learning}
+
+% Information Extraction
+\input{include/Information_Extraction}
+
+% METHODS
+\input{include/Methods}
+
+% RESULTS
+\input{include/Results}
+
+%Discussion
+\input{include/Discussion}
+
+% CONCLUSION
+\input{include/Conclusion}
+
+% REFERENCES / BIBLIOGRAPHY
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Bibliography}
+\printbibliography
+
+\cleardoublepage
+\appendix
+\setcounter{page}{1}
+\pagenumbering{Roman}			% Capitalized roman numbering starting from I (one)
+
+\input{include/backmatter/convolutions}
+
+\input{include/backmatter/color_rep}
+
+\newpage
+\printindex
+
+
+
+\end{document}

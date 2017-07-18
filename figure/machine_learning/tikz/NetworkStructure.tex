@@ -1,0 +1,57 @@
+\tikzstyle{block} = [draw=none,top color=blue!40,rounded corners=1em,bottom color=blue!5,shade, rectangle, minimum height=1.5cm,minimum width=2.5cm,drop shadow=black!80]
+
+\tikzstyle{back} = [draw=none,top color=blue!10,bottom color=blue!5,fill=white, rectangle,rounded corners=1em, minimum height=1.5cm,minimum width=2.5cm,drop shadow=black!80]
+
+\tikzstyle{textB} = [draw=none,style={align=center}];
+
+\begin{tikzpicture}[auto, on grid,>=stealth]
+	every node./style={rounded corners}
+    % We start by placing the blocks
+	\node [block] (image) {image};
+	\node [textB, above = 3.2cm of image] (imgLabel) {Input\\ layer};
+	\node [textB, right = 3cm of imgLabel] (filterLabel) {Filtering\\ layer};
+	\node [textB, right = 3.3cm of filterLabel] (featureLabel) {Feature\\ layer};
+	\node [textB, right = 3cm of featureLabel] (classLabel) {Classification\\ layer};
+	\node [textB, right = 3cm of classLabel] (classLabel) {Output\\ layer};
+    \coordinate[right =1.5cm of image] (tmp);
+    %Conv Layer
+    \coordinate[above right = 1cm and 1.75 cm of image] (tmp5);
+	\node [back, above right = -0.2cm and 0.3 cm of tmp5] (conv3) {};
+	\node [back, below left = -0.1cm and 0.15 cm of conv3] (conv2) {};
+	\node [back, above right = 0.0cm and 0.0cm of tmp5] (conv1) {};
+	\node [block, above right = 0.0cm and 0.0cm of tmp5] (conv) {conv};
+    \coordinate[above right=0.75cm and 2.9cm of tmp5] (tmp6);
+    %Filter Layer
+    \coordinate[below right = 1cm and 1.75 cm of image] (tmp7);
+	\node [back, below right = 0.1cm and 0.15 cm of tmp7] (filter2) {};
+	\node [back, below right = 0cm and 0cm of tmp7] (filter1) {};
+	\node [block, below right = 0cm and 0cm of tmp7] (filter) {filter};
+    \coordinate[below right=0.75cm and 2.7cm of tmp7] (tmp8);
+    
+    \node [block, right=6.3cm of image] (pool) {pool};
+	\node [block, below = 3 cm of pool] (global) {global};
+	
+    \coordinate[left =1.5cm of pool] (tmp2);
+	\node [block, right = 3 cm of pool] (class) {class};
+	\coordinate[left =1.5cm of class] (tmp3);
+	\coordinate[below=3cm of tmp3] (tmp4);
+	\node [block, right = 3 cm of class] (out) {out};
+    \coordinate[left =1.5cm of pool] (tmp2);
+	
+  
+		
+	\draw (image) -- (tmp);
+	\draw [->] (tmp) |- (conv);
+	\draw [->] (tmp) |- (filter);
+	\draw [->] (image) to [out=270,in=180] (global);
+	\draw (tmp6) -| (tmp2);
+	\draw (tmp8) -| (tmp2);
+	\draw [->] (tmp2) -- (pool);
+	\draw (pool) -| (tmp3);
+	\draw (global) -| (tmp4);
+	\draw (tmp4) -| (tmp3);
+	\draw [->] (tmp3) -- (class);
+	\draw [->] (class) -- (out);
+	\draw [->] (tmp4) to [out=0,in=270] (out);		
+	
+\end{tikzpicture}

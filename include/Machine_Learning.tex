@@ -1,0 +1,123 @@
+\chapter{Machine Learning}
+\begin{center}
+\vspace{-6ex}
+\textit{"Practice makes perfect"}
+\vspace{6ex}
+\end{center}
+
+qinterGeneral machine learning, supervised learning, unsipervised learning
+
+Börja med linear regression,
+
+Sedan Klassifiseringsmetoder som Fisher’s discriminant for multiple classes.
+
+Prata om SVM?
+
+Börja sedan med preceptron algorithmen för linjärt separerbara 2 klasser.
+
+Sedan in på multilayer erceptron, till neural nets.
+
+Sedan till convoluted neural nets.
+
+
+Sedan gå över till image theory flr information extraction.
+
+
+\section{Machine Learning}
+
+Solve problem without explicitly program the procedure.
+
+Learn and make prediction based on data.
+
+Algorithm operates by a built model from example inputs to make predictions on data previously not presented.
+
+Big challenges are optimization of these models.
+
+These algorithms make predictions based on a training session, and these training sessions can be divided into several categories:
+
+\begin{itemize}
+\item Unsipervised Learning
+	\begin{itemize}
+	\item Unknown Problem/Properties
+	\item Unknown Features
+	\end{itemize}
+\item Reinforced Learning
+	\begin{itemize}
+	\item Not Known result but get reward based on the whole population
+	\item Input -> Ouput not presented
+	\end{itemize}
+\item Supervised Learning
+	\begin{itemize}
+	\item Know which input should yield a specific output in training set and adjust based on the current output
+	\end{itemize}
+\end{itemize}
+
+\subsection{Supervised learning}
+
+Learn to predict an output vector when given a input vector
+
+algorithms
+e.g. (neural net, rnn) feed forward neural net using different learning algorithms, e.g. backpropagation
+
+
+There are generally two groups of supervised learning
+
+\begin{itemize}
+\item Regression - Output is range of real numbers
+\item Classification - output is a target class label
+\end{itemize}
+
+Model class $y=f(x;\omega)$, where $f$ uses numerical parameters $\omega$ to map input vector $x$ to predicted output $y$. During the learning, reduce the discrepency of target $t$ to $y$.
+
+for regression, minimize a energy function $\frac{1}{2}\left(y-t\right)^2$
+
+\subsection{Reinforced learning}
+
+Learn to select an action to maximize payoff.
+
+algorithms
+e.g. feed forward neural net but learning algorithm e.g. using evolutionary algorithms
+
+
+
+\subsection{Unsipervised learning}
+
+Find good internal representation of the input, could be used before the supervised learning to adapt the inputdata into more graspable data for the supervised learning. This method is often used to reduce training time of the supervised learning as you can wire the network more efficiently and thus less weights needs to be altered to match the output.
+
+This stage could be omitted if you can already extract useful features from the input.
+
+
+
+
+
+\subsection{Quadratic Discriminant Analysis}
+
+Our first multiclass classification will be the so called Quadratic Discriminant. For this classifier we will model our classes with a class conditional distribution,
+
+$P(X|K=k)$. This distribution tells us what is the probability of seeing the studied data $X$ given that we are in the class $k$. We will also assume that the features from plants in a class vary as a multvariate Gaussian distribution, i.e.
+
+
+\begin{equation}
+P(X|K=k)=\frac{1}{(2\pi)^D|\Sigma_k|^{1/2}}exp\left(-\frac{1}{2}(\bm{x}-\bm{\mu}_k)^{T}\bm{\Sigma}^{-1}_k(\bm{x}-\bm{\mu}_k)\right),
+\end{equation}
+
+where $\bm{x}={x_1,\cdots,x_{D}}$ are the features of the studied plant $X$, $\bm{\mu}_k=\{\mu_{k_1},\cdots,\mu_{k_{D}}\}$ and
+
+
+\[
+\Sigma_{k}=
+\begin{bmatrix}
+    \sigma_{k_{11}} & \sigma_{k_{12}} & \sigma_{k_{13}} & \dots  & \sigma_{k_{1D}} \\
+    \sigma_{k_{21}} & \sigma_{k_{22}} & \sigma_{k_{23}} & \dots  & \sigma_{k_{2D}} \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    \sigma_{k_{D1}} & \sigma_{k_{D2}} & \sigma_{k_{D3}} & \dots  & \sigma_{k_{DD}}
+\end{bmatrix}\],
+
+are the mean and covariance of the feature distribution of plant $K$ and $D$ is the number of features that describes the plant.
+
+
+\begin{figure}
+\centering
+\input{./figure/machine_learning/tikz/NetworkStructure}
+\caption{\label{fig:networkStruct}this is the struct of the network}
+\end{figure}

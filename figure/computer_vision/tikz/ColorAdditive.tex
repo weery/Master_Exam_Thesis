@@ -1,0 +1,65 @@
+\tikzstyle{blueCircle} = [draw=none, circle, rounded corners=1em,bottom color=blue!5, top color=blue!40,
+    minimum height=\R*\overlap cm,shade, minimum width=\R*\overlap cm,node distance=4 cm]
+    \tikzstyle{greenCircle} = [draw=none, circle, rounded corners=1em,bottom color=green!5, top color=green!40,
+    minimum height=\R*\overlap cm,shade, minimum width=\R*\overlap cm,node distance=4 cm]
+    \tikzstyle{redCircle} = [draw=none, circle, rounded corners=1em,bottom color=red!5, top color=red!40,
+    minimum height=\R*\overlap cm,shade, minimum width=\R*\overlap cm,node distance=4 cm]
+        \tikzstyle{cyanCircle} = [draw=none, circle, rounded corners=1em,bottom color=cyan!5, top color=cyan!100,
+    minimum height=\R*\overlap cm,shade, minimum width=\R*\overlap cm,node distance=4 cm]
+    \tikzstyle{yellowCircle} = [draw=none, circle, rounded corners=1em,bottom color=yellow!5, top color=yellow!100,
+    minimum height=\R*\overlap cm,shade, minimum width=\R*\overlap cm,node distance=4 cm]
+    
+    \tikzstyle{magentaCircle} = [draw=none, circle, rounded corners=1em,bottom color=magenta!5, top color=magenta!100,
+    minimum height=\R*\overlap cm,shade, minimum width=\R*\overlap cm,node distance=4 cm]
+    
+        \tikzstyle{whiteCircle} = [draw=none, circle, rounded corners=1em,bottom color=white!5, top color=white!100,
+    minimum height=\R*\overlap cm,shade, minimum width=\R*\overlap cm,node distance=4 cm]
+    
+\tikzstyle{shadowCircle} = [draw=black, circle, rounded corners=1em,
+	blur shadow={shadow blur steps=10,shadow blur extra rounding=1.3pt},
+    minimum height=\R*\overlap*1.01 cm,shade, minimum width=\R*\overlap*1.01 cm,node distance=4 cm]
+\begin{tikzpicture}[auto, on grid, node distance=4cm,>=stealth]
+	every node./style={rounded corners}
+
+\newcommand\R{1}
+\newcommand\overlap{3.5}
+
+\coordinate (C) at (-\R,-{\R/sqrt(3)});
+\coordinate (c1) at (0,0)+(C);
+\coordinate (c2) at (\R*2,0)+(C);
+\coordinate (c3) at (\R,{\R*sqrt(3)})+(C);
+
+\node[shadowCircle] (circle1) at (c1) {};
+\node[shadowCircle] (circle2) at (c2) {};
+\node[shadowCircle] (circle3) at (c3) {};
+
+\node[blueCircle] (circle1) at (c1) {};
+\node[greenCircle] (circle2) at (c2) {};
+\node[redCircle] (circle3) at (c3) {};
+
+%\node[ColorCircle] (c1);
+%	\node [block] (image) {$f(x,y)$};
+
+\begin{scope}
+  \clip (c1) circle (\R/2*\overlap cm);
+  \node[cyanCircle] (intersect1) at (c2) {};
+\end{scope}
+
+\begin{scope}
+  \clip (c2) circle (\R/2*\overlap cm);
+  \node[yellowCircle] (intersect2) at (c3) {};
+\end{scope}
+
+\begin{scope}
+  \clip (c1) circle (\R/2*\overlap cm);
+  \node[magentaCircle] (intersect3) at (c3) {};
+\end{scope}
+
+\begin{scope}
+  \clip (c1) circle (\R/2*\overlap cm);
+  \clip (c2) circle (\R/2*\overlap cm);
+  \node[whiteCircle] (intersect3) at (c3) {};
+\end{scope}
+
+\end{tikzpicture}
+

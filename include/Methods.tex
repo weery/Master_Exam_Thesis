@@ -1,0 +1,40 @@
+% CREATED BY DAVID FRISK, 2016
+\chapter{Methods}
+\begin{center}
+\vspace{-6ex}
+\textit{"Actions speak louder than words"}
+\vspace{6ex}
+\end{center}
+
+
+
+
+\section{Method}
+
+First part of the project is data acquisition, and currently there are two different desirable approaches, both with different advantages and disadvantages.\\
+
+One of the approaches would be to grow the crops and weeds oneself in a controlled environment, alongside with a "wild" grown field of unspecified weeds directly taken from a real field. This approach would give me complete control over the data, when it should be extracted but would yield a small database as I don't have neither the time nor the place nor knowledge go grow an entire field.\\
+
+The other would be to get in contact with a real farmer, taking continuous pictures from a real field. This could give direct feedback of the state of the field, as expert knowledge is in the vicinity. Although, having a "real life" dataset might seems desirable, I might have too little control of the environment, e.g. the farmer might be busy, the fields might be under some treatment which will alter the plants, and there might be some other uncontrollable factors.\\
+
+Regardless of the approach, the database will be obtained from the fields using a Canon S110 camera, which can give pictures in $4000 \times 3000 pixels$. To get as good pictures as possible, the camera will be mounted on a custom made tripod, which will give pictures from a desirable height.\\
+
+When the dataset has been specified, a sequence of images over the same area for different times will be overlapped so a time-lapse of the plants will be available. This is a non trivial task if done autonomously as is desirable since the project should be able to scale. The method that will be used for this process is image warping and matching. Possible problems that might occur is that the images are taken to far from each other in time that the images are too different, and some preprocessing might be used if this is the case.\\
+
+The next part is image segmentation in order to extract the parts of the pictures which represents the different plants. The first part of this process is to take into account of the color channels in the image, since the plants usually have a distinct green color against the background soil which is usually in a brownish color which consist of a heavy redness. Then different edge detection methods will be used, such as applying a laplacian filter, in order to differentiate plants that resides close to each other.\\
+
+When the position of each plant is determined, it is time to perform two classification problems on the dataset. The first is a binary classification, is the plant a crop or a weed, and the second is only performed on the weeds given from the first classification. During this part the kind of weed should be determined. Given the distinct features in each of these classes different methods will be considered. If the features is easily distinguished between the classes, e.g. shape and color, then classification methods such as linear or quadratic discrimination will be considered as well as support vector machines. If the classification part seems to be more complex, a machine learning approach be more appropriate, such as a convolutional neural network. This approach is actually preferable as it is easier to scale to include more classes in the future, but I might be limited by the amount of data accessible, since this approach requires a large amount of data.\\
+
+\section{}
+Material beskriver vilka komponenter som ingår i de
+laborationer som har utförts samt övrigt material som har
+använts. Utelämna inget men texten bör vara koncis snarare än
+uttömmande. Försök därför lyfta ut och beskriva centrala delar
+ur exempelvis laborationsinstruktioner (exempelvis instrument,
+instrumentinställningar, kemikaliekoncentrationer), och
+kravspecifikationer i texten. Lista inte allt utan lägg hellre långa
+instruktioner och protokoll som bilagor och hänvisa till dessa.
+Syftet med Material och Experiment/Metod är att en laboration
+ska kunna återskapas eller ett projekt ska kunna utvärderas mot
+bakgrund av metodval och genomförande.
+Material och Metod kan vara två separata avsnitt/kapitel. 

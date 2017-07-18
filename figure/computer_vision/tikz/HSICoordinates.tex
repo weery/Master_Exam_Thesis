@@ -1,0 +1,92 @@
+\begin{tikzpicture}[]
+    \newcommand*{\startAngle}{1.5}%
+    \newcommand*{\stopAngle}{2*pi}%
+    \newcommand*{\lowerThreshold}{0.5}%
+    \newcommand*{\coordinateRadius}{0.5}%
+    \newcommand*{\saturationScale}{0.4}%
+    \begin{axis}[
+        view={125}{30},
+        samples = 20,
+        axis lines = none,
+        axis equal,
+        clip=false,
+        data cs = polar,
+        z buffer = sort]
+        \draw[draw = none, fill = white!100, opacity=0, blur shadow={shadow blur steps=10, shadow blur extra rounding=1.3pt}] (0,0,0) circle (1);
+        % Different faces drawn in HSB space
+        \addplot3[surf,
+            data cs = polar,
+            domain = 0:\lowerThreshold,
+            y domain = 0:2*pi,
+            variable = \i,
+            variable y = \h,
+            mesh/color input = explicit mathparse,
+            point meta={symbolic={Hsb=deg(h),{\saturationScale},i)}},
+            shader=interp]
+            ({deg(h))},1,i);
+        \addplot3[surf,
+            data cs = polar,
+            domain = \lowerThreshold:1,
+            y domain = \startAngle:\stopAngle,
+            variable = \i,
+            variable y = \h,
+            mesh/color input = explicit mathparse,
+            point meta={symbolic={Hsb=deg(h),{\saturationScale},i)}},
+            shader=interp]
+            ({deg(h))},1,i);
+        \addplot3[surf,
+            data cs = polar,
+            domain = 0:1,
+            y domain = \stopAngle:\startAngle,
+            variable = \s,
+            variable y = \h,
+            mesh/color input = explicit mathparse,
+            point meta={symbolic={Hsb=deg(h),{s*\saturationScale},1)}},
+            shader=interp]
+            ({deg(h))},s,1);
+        \addplot3[surf,
+            data cs = polar,
+            domain = 0:1,
+            y domain = 0:\startAngle,
+            variable = \s,
+            variable y = \h,
+            mesh/color input = explicit mathparse,
+            point meta={symbolic={Hsb=deg(h),{s*\saturationScale},\lowerThreshold)}},
+            shader=interp]
+            ({deg(h))},s,\lowerThreshold);
+        \addplot3[surf,
+            data cs = polar,
+            domain = 0:1,
+            y domain = \lowerThreshold:1,
+            variable = \s,
+            variable y = \i,
+            mesh/color input = explicit mathparse,
+            point meta={symbolic={Hsb=deg(\startAngle),{s*\saturationScale},i)}},
+            shader=interp]
+            ({deg(\startAngle))},s,i);
+        \addplot3[surf,
+            data cs = polar,
+            domain = 0:1,
+            y domain = \lowerThreshold:1,
+            variable = \s,
+            variable y = \i,
+            mesh/color input = explicit mathparse,
+            point meta={symbolic={Hsb=deg(\stopAngle),{s*\saturationScale},i)}},
+            shader=interp]
+            ({deg(\stopAngle))},s,i);
+            % outlining
+        \draw[] (0,0,1.0) -- ({cos(deg(\startAngle))},{sin(deg(\startAngle))},1.0) ;
+        \draw[] (0,0,1.0) -- ({cos(deg(\stopAngle))},{sin(deg(\stopAngle))},1.0) ;
+        \draw[] (0,0,\lowerThreshold) -- ({cos(deg(\startAngle))},{sin(deg(\startAngle))},\lowerThreshold) ;
+        \draw[] (0,0,\lowerThreshold) --  ({cos(deg(\stopAngle))},{sin(deg(\stopAngle))},\lowerThreshold);
+        \draw[] ({cos(deg(\startAngle))},{sin(deg(\startAngle))},1.0) arc (deg(\startAngle):deg(\stopAngle):1.0);
+        \draw[] ({cos(deg(0))},{sin(deg(0))},\lowerThreshold) arc (deg(0):deg(\startAngle):1.0);
+        \draw[] ({cos(deg(0))},{sin(deg(0))},0) arc (deg(0):deg(\stopAngle):0);
+        \draw[] ({cos(deg(\startAngle))},{sin(deg(\startAngle))},\lowerThreshold) -- ({cos(deg(\startAngle))},{sin(deg(\startAngle))},1.0);
+        \draw[] ({cos(deg(\stopAngle))},{sin(deg(\stopAngle))},\lowerThreshold) -- ({cos(deg(\stopAngle))},{sin(deg(\stopAngle))},1.0);
+        % Coordinate Axis
+        \draw[thick,->] (0,0,1) -- (0,0,1.5) node[anchor= south]{$Intensity$};
+        \draw[thick,->] (1.0,0,0) -- (1.5,0,0) node[anchor = north east]{$Saturation$};
+        \draw[thick,->] ({cos(deg(0))*\coordinateRadius},{sin(deg(0))*\coordinateRadius},\lowerThreshold) arc (deg(0):deg(\startAngle/2):\coordinateRadius) node[anchor = north]{$Hue$};
+    \end{axis}
+\end{tikzpicture}

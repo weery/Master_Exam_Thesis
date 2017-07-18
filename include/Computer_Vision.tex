@@ -1,0 +1,283 @@
+\chapter{Computer Vision}
+\begin{center}
+\vspace{-6ex}
+\textit{"A picture is worth a thousand words"}
+\vspace{6ex}
+\end{center}
+
+
+ \section{Image}
+
+\section{Computer Vision}
+
+
+ \begin{figure}
+\centering
+\input{./figure/computer_vision/tikz/FourierFilter}
+\caption{\label{fig:FourierFilter} How to procedure in the fourier filtering domatin workds}
+\end{figure}
+
+
+
+
+\section{Images}
+
+Using images is a way to represent data in a visual manner. An image is a 2-dimensional object that is defined by its individual pixels. The information contained in each of these pixel is expressed using a function, $I(x,y)$, where $x$ and $y$ are the so called \textit{spacial coordinates} of the pixel often represented by a pixel on a screen. The value of this function $I(x,y)$ is called the \textit{intensity} in this pixel. More often then not, $I(x,y)$ contains more information than is given by only one value, e.g. the intensity of different colors such as red, green and blue in a \textit{RGB} valued image. These different intensities can be represented using different images stacked on each other, i.e. $I_R(x,y)$, $I_G(x,y)$, and $I_B(x,y)$ for the RGB images. This can be encoded into only one concatenated image, $I$, but not expressed in spatial coordinates but rather using different \textit{channels}. The final form of the image function is $I(x,y;c)$ where $c$ is the channel and $c\in\{0,1,\ldots, d\}$ where $d$ is the number of channels the image.
+
+\subsection{Information in images}
+
+An image $I(x,y;c)$ usually takes discrete values based on the number of bits represented by each pixel, which is called the pixel depth. The three values of R (red), G (green), and B (blue) are usually represented using $\unit[8]{bits}$ each, so the pixel depth is $\unit[24]{bits}$. This means that each pixel is built upon 3 digits in the range of $\{0,\ldots,255=2^8-1\}$ which gives rise to $(2^8)^3=16777216$ different combinations of colors. The set of spatial coordinates in an Image are discrete are defined by a width and height $(M,N)$, that is $\{(x,y)\in \mathbb{R}^2 | 0 \leq x \leq M-1, 0 \leq y \leq N-1 \}$. Combining both the different pixel values with the spatial domain the whole image space of a given size contains a total of $(2^8)^3*M \times N$ different elements. Considering that $M$ and $N$ are usually of order $\approx 10^2 - 10^4$ in applications, the amount of different images are immense. Surely there must be a way to classify the message of an image but the use of local information. In figure \ref{pic:overlap} we can see two binary images (each pixel only takes either 0 or 1 in one channel) that both represents the digit five. As seen in the middle picture, their overlap are of little importance for understanding the separate images. This shows that a given message embedded into a specific image can be just one in a subset of images conveying the same information. This subset of images defines a specific class, a class that gives meaning to all the images in this subset, such as the digit five. In order to determine whether a given image is of this subset or not, a certain number of criteria, or features, are required to be fulfilled. In the images seen below, this classification might require a 'S'-like shape with flatter line on the top. In the rest of this section the prerequisites for digitally extract meaningful features are presented.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.25\textwidth]{figure/computer_vision/images/first.png}
+\includegraphics[width=0.25\textwidth]{figure/computer_vision/images/overlap.png}
+\includegraphics[width=0.25\textwidth]{figure/computer_vision/images/second.png}
+\caption{\label{pic:overlap} Above we see two binary images of size $28 \times 28$ that represents the digit 5. Individually there is no ambiguity of their illustrations, but studying their overlap in the middle picture they might as well come from different classes as the conjoined sections are far smaller than the secluded parts.}
+\end{figure}
+
+\subsubsection{Color arithmetics}
+
+As previously discussed, an image contains information in different channels and normally in the form of an RGB image. The RGB color space is convenient for several reasons, first it is close to how humans perceive colors from the photoreceptor in our eyes and that the colors red, green and blue can be combined in an additive manner to obtain all other colors. Additive colors works in an intuitive way, imagine a completely dark room with three dimmer switches, each controlling the intensity of three different lamps. Each lamp emits either red, green, or blue light. One would find that different intensity settings would yield different colors on the walls and if all three would be maximized, white light would be shown. The opposite is true for subtractive color, here one would start with a completely white room, and the three dimmers would determine how much of each colors should be removed. The subtractive color combination is used for example when printing. One starts with the white color and then the printer receives how 'little' of each of the colors (cmy) cyan, magenta, and yellow should be present on the printed paper. The differences of the additive and the subtractive color combinations can be seen in Fig.~\ref{fig:color_arithmetic}.
+
+\begin{figure}[H]
+    \centering
+    \captionsetup[subfigure]{justification=centering}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        %\input{./figure/computer_vision/tikz/ColorAdditive}
+		\caption{}
+		\label{fig:color_additive}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        %\input{./figure/computer_vision/tikz/ColorSubtractive}
+		\caption{}
+		\label{fig:color_subtractive}
+    \end{subfigure}
+    \caption{Combining colors can either be done additively  (\textit{(a)}: The normal RGB color space combines \textcolor{red}{red} and \textcolor{blue}{blue} to \textcolor{magenta}{magenta},\textcolor{blue}{blue} and \textcolor{green}{green} to \textcolor{cyan}{cyan}, \textcolor{green}{green} and \textcolor{red}{red} to \textcolor{yellow}{yellow}, and all three to white) or subtractively (\textit{(b)}: the cmy color space combines colors subtractively by removing the selected colors from a pure white color).}
+    \label{fig:color_arithmetic}
+\end{figure}
+
+\subsubsection{Color spaces}
+
+In image processing there is often a need to separate colors into different groups, e.g. when trying to separate a green plant from a brown soil. A problem might be that the different colors are best for representing the different groups, the groups could share many pixels with similar intensity in several channels. To make the colors more distinct, the use of another color space could help give more useful information for the different groups.
+
+\paragraph{RGB}
+
+A color space is the coordinated system used to represent the different kinds of available colors. The most common one, the RGB color space can be seen as a orthogonal coordinate system with each of the axis representing one of the colors and the distance from the origin represent the intensity.
+
+\begin{itemize}
+\item RGB
+\item HSI
+\item NDVI
+\item MSAVI
+\item MSAVI2
+\item SAVI
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \captionsetup[subfigure]{justification=centering}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        %\input{./figure/computer_vision/tikz/RGBCoordinates}
+		\caption{}
+		\label{fig:color_coordinate_rgb}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        %\input{./figure/computer_vision/tikz/HSICoordinates}
+		\caption{}
+		\label{fig:color_coordinate_hsi}
+    \end{subfigure}
+    \caption{Color coordinate systems}
+    \label{fig:color_coordinate}
+\end{figure}
+
+\subsubsection{Layers of information}
+
+If we yet again consider the images in figure \ref{pic:overlap}, the classification problem does not use the local information in the pixels to make the classification, nor does it use small regions of information but rather uses the whole image space to fully extract the important features. This means that we could change the gray level values of some pixels without changing the output, which for example could originate from a noisy signal. The result would not be altered even when some regions of the image is changed, for example, the same classification should be done even if we somehow made the five thinner or wider. From this we can conclude that there are different sizes where information is present. Generally we can divide such sizes into three main groups namely,
+
+\begin{itemize}
+\item Local, where each pixel is considered separately
+\item Regional, A neighbourhood around the pixel is used to determine some spatial information locally
+\item Global, The whole image as a whole is considered
+\end{itemize}
+
+We shall later see how we can use information from each of these groups as inputs to different classification algorithms. The most intuitive ones uses the highest level of information, namely the from the global group. Some features from this group, used in the classification of digits problem, could be,
+
+\begin{itemize}
+\item Number of white pixels, Area
+\item Its curliness, Convexity
+\item Number of holes, Euler number
+\end{itemize}
+
+
+
+\section{Image segmentation}
+
+In order to extract useful information from an image, we need to segment the image into the parts we want to extract information for, e.g. if we want to study a plant in a field we need to remove the background dirt.
+
+\subsection{Histogram-based thresholding}
+
+If the part of the image is fundamentally different from the rest of the image, e.g. a white cloud on a blue sky, we can use a technique of thresholding. In thresholding, we represent the image using only one intensity, i.e. only one channel, and creates a threshold value, $T_I$. Using this threshold we create a binary image where 1 represents the intense part of the image and 0 the \todv{(motsats intense)} part of the image using,
+
+\begin{equation}
+I_S(x,y)=\left \{ \begin{array}{ll}
+1 & I(x,y) \geq T_I \\
+0 & I(x,y) < 0
+\end{array} \right.
+\end{equation}
+
+\todv{sätt in en bild som förklarar.}
+
+Choosing this threshold might be trivial for some images, e.g. images which have a bright and a dim? region, but sometimes the intensities are very close or even overlapping.
+
+\begin{comment}
+
+\subsection{Edge detection}
+
+detect changes in the image,
+
+non local operations,
+
+filters
+
+\begin{equation}
+F=\left[
+\begin{array}{lll}
+a & b & c \\
+d & e & f \\
+g & h & i
+\end{array}
+\right]
+\end{equation}
+
+\subsubsection{Convolution}
+
+\begin{equation}
+f(x,y) \ast g(x,y) = \sum_{u=-m}^{m}\sum_{v=-n}^{n} f(x,y)g(x-u,y-v)
+\end{equation}
+
+\subsubsection{Correlation}
+\begin{equation}
+f(x,y) \star g(x,y) = \sum_{u=-m}^{m}\sum_{v=-n}^{n} f(x,y)g(x+u,y+v)
+\end{equation}
+
+Apply filter to $f(x,y)$
+
+$$
+f(x,y) \star L
+$$
+
+
+
+\begin{equation}
+H(x)=
+\begin{cases}
+1 & \text{if } x \geq t \\
+0 & \text{if } x < t
+\end{cases}
+\end{equation}
+
+
+\section{Image warping and matching}
+
+Affine warping: \cite{ImageWarping} \cite{ImageWarping2}
+
+\begin{equation}
+x' = Ax+b
+\end{equation}
+
+
+\subsection{translation}
+First iteration with only translation
+
+\begin{align*}
+x'_1 & = x_1 + b_1 \\
+x'_2 & = x_2 + b_2
+\end{align*}
+
+
+The matching is optimized by minimising the cost function:
+
+\begin{equation}
+S=\sum_x(Y'(x')-Y(X))^2
+\end{equation}
+
+$$
+S=\sum_x(Y'(x+b)-Y(x))^2
+$$
+
+\subsection{Rotation}
+
+\begin{equation}
+A=\left[
+\begin{array}{cc}
+\cos(\theta) & \sin(\theta) \\
+-\sin(\theta) & \cos(\theta)
+\end{array}
+\right]
+\end{equation}
+
+\subsection{Dilation}
+
+\begin{equation}
+x' = cx
+\end{equation}
+
+
+\subsection{Procrustes}
+
+combination of all of the above
+
+\begin{equation}
+A=\left[
+\begin{array}{cc}
+\cos(\theta) & \sin(\theta) \\
+-\sin(\theta) & \cos(\theta)
+\end{array}
+\right]
+\end{equation}
+
+
+\subsection{Affine}
+
+A more general
+
+
+\begin{equation}
+A=\left[
+\begin{array}{cc}
+a_{00} & a_{01} \\
+a_{10} & a_{11}
+\end{array}
+\right]
+\end{equation}
+
+
+
+Thin plate spline?
+\section{NDVI}
+
+\begin{equation}
+NDVI=\frac{NIR-VIS}{NIR+VIS}
+\end{equation}
+
+where $NIR$ near infrared, and $VIS$ visible radiation.
+
+\section{Feature Extraction}
+
+\subsubsection{SURF - Speeded Up Robust Feature}
+
+\subsubsection{BRISK - Binary Robust Invariant Scalable Keypoints}
+
+\subsubsection{Corner Points}
+
+\subsubsection{FAST, Features from Accelerated Segment Test}
+
+
+
+
+\end{comment}

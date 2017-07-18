@@ -1,0 +1,20 @@
+\tikzstyle{block} = [draw=none, rectangle, rounded corners=1em,bottom color=blue!5, top color=blue!40,
+	blur shadow={shadow blur steps=10,shadow blur extra rounding=1.3pt},
+    minimum height=3em,shade, minimum width=6em,node distance=4 cm]
+\tikzstyle{block2} = [draw=none, rectangle, rounded corners=1em,bottom color=blue!5,top color=blue!40,
+      blur shadow={shadow blur steps=5,shadow blur extra rounding=1.3pt},
+    minimum height=3em, minimum width=6em,node distance=3cm]
+
+\begin{tikzpicture}[auto, on grid, node distance=4cm,>=stealth]
+	every node./style={rounded corners}
+    % We start by placing the blocks
+	\node [block] (image) {$f(x,y)$};
+	\node [block, right of = image] (fourier) {$F(u,v)$};
+	\node [block2, below of= fourier] (fourierF) {$\hat{F}(u,v)$};
+	\node [block2, below of = image] (imageF) {$\hat{f}(x,y)$};
+	
+    \draw [->] (image) to [bend left] node[above] {$\mathcal{F}\left[f(x,y)\right]$} (fourier);
+    \draw [->] (fourier) -- node[right] {$F(u,v)H(u,v)$} (fourierF);
+    \draw [->] (fourierF) to [bend right] node[above] {$\mathcal{F}^{-1}\left[\hat{F}(u,v)\right]$} (imageF);
+    \draw [->] (image) -- node[left] {$f(x,y)\star h(x,y)$} (imageF);
+\end{tikzpicture}

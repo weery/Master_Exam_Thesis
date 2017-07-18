@@ -1,0 +1,322 @@
+\chapter{Color representation}
+
+This part extracts infromation from the course book Digital Image Processing, Gonzales \cite{diProcessing} unless other sources stated.
+
+\section{Primary Colors}
+
+The use of images is a great way of providing information visually. An image is represented by a rectangular grid where each cell, or hereafter pixel, emits light of a certain wavelength. When the color of each pixel is determined and is ready to be displayed, there is a problem of how to convey the color information from the source to the recipients eyes. On way would be to many different light sources for each pixel, where each source is responsible for a small region of wavelengths. This is problematic due to our wide range of visible colors and in order to reduce the number of light sources we need, these wavelength regions must be chosen with care. This problem is slightly simplified by the fact that our eyes consists of three different sensors that react to different wavelengths, and these are roughly equal to blue, green and red colors and their absorption can be seen in Fig.~\ref{fig:colorAbsorption}.
+
+\begin{figure}[h]
+    \centering
+    \resizebox{0.49\textwidth}{!}{
+        \input{./figure/appendix/color_rep/tikz/colorChannel}
+    }
+    \caption{\label{fig:colorAbsorption}When incoming photons with different wavelengths $\lambda$ hits each receptor, they get excited depending on their ranges. The figure shows, not accurate ranges nor intensities, but illustrates a schematically the different ranges for the different colors. }
+\end{figure}
+
+These three colors, red, green, and blue are therefore called the \textit{primary colors} and will be the basis for image representations. There are two different ways of using these colors to provide the targeted color, in a additive or a subtractive manner. When adding the primaries we start with a completely black canvas and increase the intensity for each of the colors until we reach a white color. For the subtractive nature we start with a white canvas and determine how much of each color we want to subtract until a black color is reached. The difference between these can be thought of as absorption and emittance, and the distinction can be seen in Fig.~\ref{fig:color_arithmetic}.
+
+\begin{figure}[H]
+    \centering
+    \captionsetup[subfigure]{justification=centering}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \input{./figure/computer_vision/tikz/ColorAdditive}
+		\caption{}
+		\label{fig:color_additive}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \input{./figure/computer_vision/tikz/ColorSubtractive}
+		\caption{}
+		\label{fig:color_subtractive}
+    \end{subfigure}
+    \caption{Combining colors can either be done additively  (\textit{(a)}: The normal \textbf{RGB} color space combines \textcolor{red}{red} and \textcolor{blue}{blue} to \textcolor{magenta}{magenta},\textcolor{blue}{blue} and \textcolor{green}{green} to \textcolor{cyan}{cyan}, \textcolor{green}{green} and \textcolor{red}{red} to \textcolor{yellow}{yellow}, and all three to white) or subtractively (\textit{(b)}: the \textbf{CMY} color space combines colors subtractively by removing the selected colors from a pure white color).}
+    \label{fig:color_arithmetic}
+\end{figure}
+
+\section{Color Spaces}
+
+\subsection{\textbf{RGB} and \textbf{CMY}}
+
+In the introduction of this appendix we talked about the primary colors and how they are used to represent a wide range of colors. This representation of colors is the \textbf{RGB} (red, green, blue) color space for the additive colors, and \textbf{CMY} (cyan, magenta, yellow) for the subtractive. Many other color spaces exists and are used in different situations. Ultimately they represents the same color, only through other variables than red, green, and blue. Often the change of color spaces is done by changing the basis for the color representations. E.g. transforming from \textbf{RGB} to \textbf{CMY} color space is done by the linear transformation,
+
+\begin{equation}
+\left(\begin{array}{c}
+c \\ m \\ y
+\end{array}\right) = 1- \left(\begin{array}{c}
+r \\ g \\ b
+\end{array}\right),
+\end{equation}
+
+which makes it clear why the other is called subtractive when the first is additive. Although we can change the color space in which we represent an image, the fact that our screens use red, green, and blue colors to mix colors is still present. So to view a new color space we simply use these light sources and pretend that our new values still lies in a \textbf{RGB} color space. The result of this representation can be seen in Fig.~\ref{fig:rgbTocmy}.
+
+\begin{figure}[H]
+    \centering
+    \captionsetup[subfigure]{justification=centering}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/imgRGB.jpg}
+		\caption{}
+		\label{fig:imgRGB}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/imgCMY.jpg}
+		\caption{}
+		\label{fig:imgCMY}
+    \end{subfigure}
+    \caption{Presenting images using other color spaces than the ordinary \textbf{RGB} color space can yield interesting result. \textit{(a)}: Image show in the ordinary \textbf{RGB} color space. \textit{(b)}: The same image as in \textit{(a)} but show in \textbf{RGB} representation using \textbf{CMY} color values.}
+    \label{fig:rgbTocmy}
+\end{figure}
+
+Sometimes the information that is interesting in the image in not needed to be expressed using three color channels and a color conversion might only produce a single index for each pixel. These will be called color indices, and basically any color space is build by three different color indices, due to the three different kinds of receptors. The difference between three random color indices and a color space is that the color space spans the entire "color room", meaning that a color space can represent any color and conversion between spaces exists, which is not always true for color indices. Several color spaces/indices will be presented as well as some reason why using them.
+
+\subsection{HSI}
+
+In many computer vision applications there is a need to separate segments of images based on the color of these. This could be tedious if done using the \textbf{RGB} color space. E.g. suppose you would want to select a yellowish color, but you care not for an exact color and allow some deviation. A color value is chosen as base, and small deviations in the red color channel will yield about the same color, but also small deviations in the green and blue channels will produce almost the same result. So to select the appropriate range of colors that are representative is dependent on three different deviations, and the target lies in a three dimensional shape. So a color space in which the information of the color is embedded in one of the channels could prove useful.  We can imagine that all available colors are represented on a disk where the colors changes on the viewing angle from the origin, and the prevalence of this color increases with distance. So to choose a specific color we would simply choose an angle from the origin which points at the targeted color. Then we would go in that direction until the amount of color is reached and then we increase/decrease the intensity of the selected color. This is a new color space which we call \textbf{HSI}, \textbf{H}ue, \textbf{S}aturation, and \textbf{I}ntensity. The color coordinates for this color space is here represented by an angle, a radius and a height compared to three distances for the \textbf{RGB} color space, the differences is show in Fig. ~\ref{fig:color_coordinate}
+
+\begin{figure}[H]
+    \centering
+    \captionsetup[subfigure]{justification=centering}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \input{./figure/computer_vision/tikz/RGBCoordinates}
+		\caption{}
+		\label{fig:color_coordinate_rgb}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \input{./figure/computer_vision/tikz/HSICoordinates}
+		\caption{}
+		\label{fig:color_coordinate_hsi}
+    \end{subfigure}
+    \caption{Different color spaces uses different coordinates to represent the color room. In \textit{(a)} we see the \textbf{RGB} color space which is spanned by orthonormal basis, whereas in \textit{(b)} which shows the \textbf{HSI} color space uses an angle, a radius and a height instead.}
+    \label{fig:color_coordinate}
+\end{figure}
+
+\subsubsection{\textbf{RGB} to \textbf{HSI}}
+
+Converting between \textbf{RGB} and \textbf{HSI} is a non-linear transfrom and can thusly not be written in matrix form. In the following calculations the values in \textbf{RGB} space is written as $R, G, \text{and} B$ and \textbf{HSI} $H, S, \text{and} I$. Also a \textbf{RGB} color is assumed to be in $C_{RGB} \in [0,1]^3$ and \textbf{HSI} $C_{HSI} \in [0^{\circ},360^{\circ}]\times[0,1]^2$. The Hue component is an angle and trigonometric calculations are therefore necessary,
+
+\begin{equation}
+H = \left\{\begin{array}{ll}
+\theta & \text{if}\; B \leq G \\
+360^{\circ} - \theta & \text{if}\; B > G\\
+\end{array}\right.,
+\end{equation}
+
+where,
+
+\begin{equation}
+\theta = \cos^{-1}{\left\{\frac{\frac{1}{2}\left[(R-G)+(R+B)\right]}{\left[(R-G)^2+(R-B)(G-B)\right]^{1/2}}\right\}},
+\end{equation}
+
+whereas the Saturation and Intensity is easier to calculate,
+
+\begin{equation}
+S = 1- \frac{3}{R+G+B}\left[min(R,G,B)\right],
+\end{equation}
+
+and
+
+\begin{equation}
+I = \frac{1}{3}(R+G+B).
+\end{equation}
+
+\subsubsection{HSI to RGB}
+
+Converting back to RGB colors is also a tedious task, mostly due to that we need three different algorithms depending on the value of $H$.
+
+\paragraph*{$0^{\circ} \leq H < 120^{\circ}$}
+
+\begin{equation}
+\begin{array}{lcl}
+R & = & I \left[1+\frac{S\cos{H}}{\cos{(60^{\circ}-H)}}\right] \\
+G & = & 3I -(R+B) \\
+B & = & I(1-S) \\
+\end{array}
+\end{equation}
+
+\paragraph*{$120^{\circ} \leq H < 240^{\circ}$}
+
+\begin{equation}
+	\begin{array}{lcl}
+		H' & = & H-120^{\circ}\\
+		R & = & I(1-S)\\
+		G & = & I \left[1+\frac{S\cos{H'}}{\cos{(60^{\circ}-H')}}\right]\\
+		B & = & 3I -(G+B)\\
+	\end{array}
+\end{equation}
+
+\paragraph*{$240^{\circ} \leq H \leq 240^{\circ}$}
+
+\begin{equation}
+	\begin{array}{lcl}
+		H' & = & H-240^{\circ}\\
+		R & = & 3I -(G+B)\\
+		G & = & I(1-S)\\
+		B & = & I \left[1+\frac{S\cos{H'}}{\cos{(60^{\circ}-H')}}\right]\\
+	\end{array}
+\end{equation}
+
+
+The applicability of the \textbf{HSI} color space is hopefully evidently shown in Fig.~\ref{fig:hsiChannels}.
+
+\begin{figure}[H]
+    \centering
+    \captionsetup[subfigure]{justification=centering}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/imgHSI.jpg}
+		\caption{}
+		\label{fig:imgHSI}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/imgH.jpg}
+		\caption{}
+		\label{fig:imgH}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/imgS.jpg}
+		\caption{}
+		\label{fig:imgS}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/imgI.jpg}
+		\caption{}
+		\label{fig:imgI}
+    \end{subfigure}
+    \caption{It is not evident from the \textbf{RGB} representation of the \textbf{HSI} color image shown in \textit{(a)} that the colors can be grouped based on one color channel, but is clearer from the Hue channel in \textit{(b)}, which shows large groupings for different parts of the image. The Saturation channels shows occasional grouping in \textit{(c)} but is not as uniform as the Hue, and the Intensity in \textit{(d)} shows large variations.}
+    \label{fig:hsiChannels}
+\end{figure}
+
+\section{Color Indices using Near Infrared wavelengths}
+
+One great thing with using electromagnetic radiation (light) as a source of information is that we do not need to use wavelengths comprehensible to our brains. The implications of this gives us the ability to use light information from wavelengths outside the visible spectrum. This can be of immense help when gathering information from biological living things which usually function in certain ways due to physical or chemical consequences. To further explain this we realise that light affect biological cells by exciting its building components to a higher energy state, and if the energy in a photon does not lie within the range of the possible excitation energies, there is no reason for a cell to absorb that light. So the reason why we cannot see certain wavelengths is due to almost full reflectance of those energies in our eyes receptors, and the same is true for most biological molecules as they are of the same order of magnitude in size and should be affected by roughly the same wavelengths, albeit in different ways. If we could somehow capture the near infra red light ($\lambda \approx \unit[750-1400]{nm}$) we could "see" the healthiness of a plant as a sick and degenerate cells does not behave as a living, healthy one as the molecules starts to crumble and behave differently.
+
+\subsection{NDVI}
+
+\textbf{NDVI} or \textbf{N}ormalized \textbf{D}ifference \textbf{V}egetation \textbf{I}ndex is used to differentiate healthy vegetation from either unhealthy or sparse vegetation  sections\cite{ndviSource}. What enables the usage of this index is that active chlorophyll in plants strongly absorbs visible light and a living cell strongly reflects near infrared light as it can not use this energy internally, and absorbing it would cause overheating. On the other hand, inactive or dead chlorophyll does not absorb the visible light to the same degree whereas the cell reflects roughly the same amount of near infrared light even if the chlorophyll is degenerate. The index is calculated by the formula,
+
+\begin{equation}
+	\label{eq:ndvi}
+	NDVI = \frac{nR-VIS}{nR+VIS},
+\end{equation}
+
+where $nR$ is the near infrared index and $VIS$ is the representation of the visible light. This index ranges from -1 to +1 where a number close to +1 represents a healthy plant. Besides determining the health of plants, this index can also be used to determine what part of an image is a plant or not as a low index corresponds to sparse or no vegetation.
+
+\subsection{SAVI}
+
+The previously discussed index, \textbf{NDVI}, is great when determining the health of vegetation that is dense. If, on the other hand, the vegetations is sparse, then the reflectance of the soil could come to matter. Thus a \textbf{S}oil-\textbf{A}djusted \textbf{V}egetation \textbf{I}ndex \cite{saviSource}, \textbf{SAVI}, could help with this problem which is a modification of \textbf{NDVI} using a \textit{Soil brightness correction factor}, $L$ is introduced to and extends Eq.~\eqref{eq:ndvi} to,
+
+\begin{equation}
+	\label{eq:savi}
+	SAVI=\frac{nR-VIS}{nR+VIS+L}(1+L),
+\end{equation}
+
+where $SAVI(L=0)=NDVI$. The factor $L$ is adjusted by the amount of green vegetation, where $L=1$ means a low amount of greenness and $L=0$ a large amount.
+
+\subsection{MSAVI}
+
+The biggest problem with the \textbf{SAVI} index is the parameter $L$ which is determined for each problem by trial-and-error. The \textbf{M}odified \textbf{S}oil-\textbf{A}djusted \textbf{V}egetation \textbf{I}ndex \cite{msaviSource}, \textbf{MSAVI} is calculated the same way as \textbf{SAVI} Eq.~\eqref{eq:savi},
+
+\begin{equation}
+    MSAVI = \frac{nR-VIS}{nR+VIS+L}(1+L),
+\end{equation}
+
+only that in this case, $L$ is not a constant but is calculated using,
+
+\begin{equation}
+	L = 1-\frac{2s\cdot(nR-VIS)(nR-s\cdot VIS)}{nR + VIS},
+\end{equation}
+
+where $s$ is yet another parameter, but is a equipment dependent parameter rather than application dependent one.
+
+\subsection{MSAVI2}
+
+The final Color index we will consider using the near infrared channel is completely parameter free, but the expression looks nastier. This new index is derived from \textbf{MSAVI} using recursion (the details will not be given here) and the final expression is calculated by,
+
+\begin{equation}
+    MSAVI2 = \frac{\left(2nR+1-\sqrt{\left(2nR+1\right)^2-8\left(nR-VIS\right)}\right)}{2}.
+\end{equation}
+
+\todv{Use the indices for healthy and unhealthy plants,
+make new figure showing the comparisons}
+
+These four color indices can be seen in \Cref{fig:rgbVSnrgbNDVI,fig:rgbVSnrgbSAVI,fig:rgbVSnrgbMSAVI,fig:rgbVSnrgbMSAVI2}.
+
+\section{nRGB to RGB}
+
+Above it is mentioned that near infrared light can come to help in various image analysis problems. However, this does not come for free, unless having access to really special equipment, most image light sensors only provide three different channels for capturing. Thus, the inclusion of a new channel, near infrared, implies the exclusion of another. The simplest would be to change it with the red channel as it lies closest in wavelength. If viewed using the \textbf{RGB} format, the resulting image will most likely be very reddish in color as most materials reflect the near infrared light, the comparison can be seen in \Cref{fig:rgbVSnrgb1,fig:rgbVSnrgb2}
+
+
+\todv{Use this image to show rgb and nrgb channels}
+\begin{figure}[H]
+    \centering
+    \captionsetup[subfigure]{justification=centering}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/imgRGB.jpg}
+		\caption{}
+		\label{fig:rgbVSnrgb1}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/nrgb.jpg}
+		\caption{}
+		\label{fig:rgbVSnrgb2}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/ndvi.jpg}
+		\caption{}
+		\label{fig:rgbVSnrgbNDVI}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/savi.jpg}
+		\caption{}
+		\label{fig:rgbVSnrgbSAVI}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/msavi.jpg}
+		\caption{}
+		\label{fig:rgbVSnrgbMSAVI}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./figure/appendix/color_rep/images/msavi2.jpg}
+		\caption{}
+		\label{fig:rgbVSnrgbMSAVI2}
+    \end{subfigure}
+    \caption{}
+    \label{fig:rgbVSnrgb}
+\end{figure}
+
+In order to show the \textbf{nRGB} image we want to "simulate" it as it was an ordinary \textbf{RGB} image. So we want to move the wavelengths of the new channel to a targeted one. Mathematically this is done using a convolution, described in Chapter.~\label{chap:conv}, with convolving function, $\delta(x)$ where $x$ is the targeted channels mean. This modification, replacing the red channel with the near infrared channel can be seen in Figure.~\ref{fig:fig:nRGBtoRGBmod}.
+
+\begin{figure}[H]
+    \centering
+    \captionsetup[subfigure]{justification=centering}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{
+            \input{./figure/appendix/color_rep/tikz/colorChannelNR}
+        }
+		\caption{}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{
+            \input{./figure/appendix/color_rep/tikz/colorChannelNRMoved}
+        }
+		\caption{}
+    \end{subfigure}
+    \caption{In \textit{(a)} we can see the capturing of light in the \textbf{nRGB} color space. In order to display it using \textbf{RGB} color channels, we need to modify the wavelengths to the ordinary of \textbf{RGB} colors. This modification of the near infrared channel is showns in \textit{(b)}.}
+    \label{fig:nRGBtoRGBmod}
+\end{figure}

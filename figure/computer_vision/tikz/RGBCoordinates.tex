@@ -1,0 +1,80 @@
+\definecolor{colorRed}{rgb}{1.0,0.0,0.0}%
+\definecolor{colorGreen}{rgb}{0.0,1.0,0.0}%
+\definecolor{colorRedGreen}{rgb}{1.0,1.0,0.0}%
+\definecolor{colorBlue}{rgb}{0.0,0.0,1.0}%
+\definecolor{colorRedBlue}{rgb}{1.0,0.0,1.0}%
+\definecolor{colorGreenBlue}{rgb}{0.0,1.0,1.0}%
+\definecolor{colorRedGreenBlue}{rgb}{1.0,1.0,1.0}%
+\begin{tikzpicture}[]
+    \begin{axis}[
+        set layers,
+        axis equal,
+        view={125}{30},
+        axis lines=none,
+        clip=false]
+        \draw[draw=none,shade,fill =white!100,opacity=0,blur shadow={shadow blur steps=10,shadow blur extra rounding=1.3pt}] (0,0,0) -- (1.0,0,0) -- ( 1.0,1.0,0) -- (0,1.0,0);
+        \addplot3[patch,
+            shader=interp,
+            mesh/color input=explicit]
+        coordinates {
+            % Red green face
+            (0,0,0) [color=black!40]
+            (1,0,0) [color=colorRed!40]
+            (0,1,0) [color=colorGreen!40]
+            (1,0,0) [color=colorRed!40]
+            (0,1,0) [color=colorGreen!40]
+            (1,1,0) [color=colorRedGreen!40]
+            % Red blue face
+            (0,0,0) [color=black!40]
+            (1,0,0) [color=colorRed!40]
+            (0,0,1) [color=colorBlue!40]
+            (1,0,0) [color=colorRed!40]
+            (0,0,1) [color=colorBlue!40]
+            (1,0,1) [color=colorRedBlue!40]
+            % Green blue face
+            (0,0,0) [color=black!40]
+            (0,1,0) [color=colorGreen!40]
+            (0,0,1) [color=colorBlue!40]
+            (0,1,0) [color=colorGreen!40]
+            (0,0,1) [color=colorBlue!40]
+            (0,1,1) [color=colorGreenBlue!40]
+            % Green blue face full red
+            (1,0,0) [color=colorRed!40]
+            (1,1,0) [color=colorRedGreen!40]
+            (1,0,1) [color=colorRedBlue!40]
+            (1,1,0) [color=colorRedGreen!40]
+            (1,0,1) [color=colorRedBlue!40]
+            (1,1,1) [color=colorRedGreenBlue!40]
+            % Red blue face full Green
+            (0,1,0) [color=colorGreen!40]
+            (1,1,0) [color=colorRedGreen!40]
+            (0,1,1) [color=colorGreenBlue!40]
+            (1,1,0) [color=colorRedGreen!40]
+            (0,1,1) [color=colorGreenBlue!40]
+            (1,1,1) [color=colorRedGreenBlue!40]
+            % Red green face full blue
+            (0,0,1) [color=colorBlue!40]
+            (1,0,1) [color=colorRedBlue!40]
+            (0,1,1) [color=colorGreenBlue!40]
+            (1,0,1) [color=colorRedBlue!40]
+            (0,1,1) [color=colorGreenBlue!40]
+            (1,1,1) [color=colorRedGreenBlue!40]
+        };
+        %\draw[thick,dashed] (0,0,0) -- (1.0,0,0);
+        %\draw[thick,dashed] (0,0,0) -- (0,1.0,0);
+        %\draw[thick,dashed] (0,0,0) -- (0,0,1.0);
+        \draw[thick,->] (1.0,0,0) -- (1.5,0,0) node[anchor=north east]{$Red$};
+        \draw[thick,->] (0,1.0,0) -- (0,1.5,0) node[anchor=north west]{$Green$};
+        \draw[thick,->] (0,0,1.0) -- (0,0,1.5) node[anchor=south]{$Blue$};
+        % outlines
+        \draw[] (1.0,0,0) -- (1.0,1.0,0);
+        \draw[] (1.0,1.0,0) -- (1.0,1.0,1.0);
+        \draw[] (1.0,0,0) -- (1.0,0,1.0);
+        \draw[] (1.0,0,1.0) -- (1.0,1.0,1.0);
+        \draw[] (0,1.0,0) -- (0,1.0,1.0);
+        \draw[] (0,1.0,1.0) -- (1.0,1.0,1.0);
+        \draw[] (0,1.0,0) -- (1.0,1.0,0);
+        \draw[] (0,0,1.0) -- (0,1.0,1.0);
+        \draw[] (0,0,1.0) -- (1.0,0,1.0);
+    \end{axis};
+\end{tikzpicture}
