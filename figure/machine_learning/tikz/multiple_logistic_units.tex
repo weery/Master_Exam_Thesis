@@ -1,0 +1,45 @@
+\tikzstyle{block} = [draw=none,top color=blue!40,rounded corners=1em,bottom color=blue!5,shade, rectangle, minimum height=1.5cm,minimum width=2.5cm,drop shadow=black!80]
+
+\tikzstyle{lUnit} = [draw=none,top color=blue!40,rounded corners=1em,bottom color=blue!5,shade, circle, minimum height=1.5cm,minimum width=1.5cm,drop shadow=black!80]
+
+\tikzstyle{lUnitRed} = [draw=none,top color=red!40,rounded corners=1em,bottom color=red!5,shade, circle, minimum height=1.5cm,minimum width=1.5cm,drop shadow=black!80]
+
+\tikzstyle{lUnitGreen} = [draw=none,top color=green!40,rounded corners=1em,bottom color=green!5,shade, circle, minimum height=1.5cm,minimum width=1.5cm,drop shadow=black!80]
+
+
+\tikzstyle{back} = [draw=none,top color=blue!10,bottom color=blue!5,fill=white, rectangle,rounded corners=1em, minimum height=1.5cm,minimum width=2.5cm,drop shadow=black!80]
+
+\tikzstyle{textB} = [draw=none,style={align=center}];
+
+\begin{tikzpicture}[auto, on grid,>=stealth]
+	every node./style={rounded corners}
+
+	% Node placement
+	\node [lUnit] (input1) {$x_1$};
+	\node [lUnit, above = 2.2cm of input1] (biasUnit) {$x_0=1$};
+	\node [textB, above = 1.7cm of biasUnit] (inputLabel) {Input};
+	\node [above = -1.7cm of input1] (inputDots) {$\vdots$};
+	\node [lUnit,above = -1.7cm of inputDots] (inputn) {$x_n$};
+
+	\node[lUnitRed, above right = -1.1 cm and 4.0cm of biasUnit] (logisticUnit1) {$z_1$};
+
+	\node[above = -1.7 cm of logisticUnit1] (logisticDots) {$\vdots$};
+
+	\node[lUnitGreen, above = -1.7 cm of logisticDots] (logisticUnitm) {$z_m$};
+
+	\node [textB, right = 4.0cm of inputLabel] (logisticLabel) {Logistic\\ Unit};
+	\node[right = 2.8cm of logisticUnit1] (output1) {$g(z_1)$};
+	\node[right = 2.8cm of logisticUnitm] (outputm) {$g(z_m)$};
+	\node [textB, right = 2.8cm of logisticLabel] (outputLabel) {Output};
+
+	% Lines between nodes
+	\draw [->, thick, red] (biasUnit) -- node[above]{$\omega_{1,0}$} (logisticUnit1);
+	\draw [->, thick, red] (input1) -- node[above]{$\omega_{1,1}$} (logisticUnit1);
+	\draw [->, thick, red] (inputn) -- (logisticUnit1);
+	\draw [->, thick] (logisticUnit1) -- (output1);
+
+	\draw [->, thick, green] (biasUnit) -- node[right]{$\omega_{m,0}$} (logisticUnitm);
+	\draw [->, thick, green] (input1) -- (logisticUnitm);
+	\draw [->, thick, green] (inputn) -- node[above]{$\omega_{m,n}$} (logisticUnitm);
+	\draw [->, thick] (logisticUnitm) -- (outputm);
+\end{tikzpicture}

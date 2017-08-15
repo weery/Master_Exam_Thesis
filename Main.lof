@@ -1,0 +1,67 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {english}
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.1}{\ignorespaces A logistic unit combines the inputs via the weights on the connection from the input to the unit. These weighted inputs are summed and are inserted to the activation function whose result is the output.\relax }}{7}{figure.caption.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Instead of only being connected to one logistic unit, the inputs are connected to all $m$ units representing each class. Each logistic unit $j$ are connected to the inputs by the weights $\omega _j$ and after the summation, the unit with the largest activation "wins".\relax }}{9}{figure.caption.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Instead of only being connected to one logistic unit, the inputs are connected to all $m$ units representing each class. Each logistic unit $j$ are connected to the inputs by the weights $\omega _j$ and after the summation, the unit with the largest activation "wins".\relax }}{10}{figure.caption.11}
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Above we see two binary images of size $28 \times 28$ that represents the digit 5. Individually there is no ambiguity of their illustrations, but studying their overlap in the middle picture they might as well come from different classes as the conjoined sections are far smaller than the secluded parts.\relax }}{14}{figure.caption.14}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.2}{\ignorespaces The initial threshold guess, $T_1$, is too far to the left which is adjusted to $T_2$ after one iteration of the adaptive global thresholding algorithm.\relax }}{16}{figure.caption.15}
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.1}{\ignorespaces A logistic unit combines the inputs via the weights on the connection from the input to the unit. These weighted inputs are summed and are inserted to the activation function whose result is the output.\relax }}{19}{figure.caption.19}
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.1}{\ignorespaces The simplest way to divide the data into several groups is just to select the groups in order.\relax }}{27}{figure.caption.20}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.2}{\ignorespaces To make the grouping stochastic, each number if assigned a new random group, while still ensuring the group sizes remain the same. The new groups can then be placed together for easy access.\relax }}{28}{figure.caption.21}
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {6.1}{\ignorespaces The segmentation process as follows: \textit {(a):} The original image is loaded and prepared for processing. \textit {(b):} The image converted to HSI but still represented in RGB colours. \textit {(c):} For the segmentation to work properly the image needs to be represented in one channel that represents the two segments well, and this is what the Hue channel in HSI representation does. \textit {(d):} The Hue channel clean up. \textit {(e):} The optimal threshold between the two segments is represented by the red line \textit {(f):} Binarization of the HSI image using clipping. \textit {(g):} Clean up the binary image by removing small objects. \textit {(h):} Final segmented image. \relax }}{30}{figure.caption.22}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Directly applying the same segmentation algorithm on non-perfect noise data does not really give satisfying results.\relax }}{31}{figure.caption.23}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {6.3}{\ignorespaces \relax }}{32}{figure.caption.25}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Using either forward or backward selection for the best feature combination yields different results. E.g. Feature number 7 (mean blue) is the second feature to be added in the forward selection algorithm and is the last to be removed in the backward selection. The corresponding features can be found in Table~\ref {tab:featNameNum}.\relax }}{32}{figure.caption.26}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {6.5}{\ignorespaces With immense computer power the best $n$ combinations can be brute forced. This ensures to get the best available combination using $n$ features as all combinations are compared to each other. \relax }}{33}{figure.caption.27}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {6.6}{\ignorespaces \relax }}{34}{figure.caption.28}
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.1}{\ignorespaces When incoming photons with different wavelengths $\lambda $ hits each receptor, they get excited depending on their ranges. The figure shows, not accurate ranges nor intensities, but illustrates a schematically the different ranges for the different colors. \relax }}{V}{figure.caption.30}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.2}{\ignorespaces Combining colors can either be done additively (\textit {(a)}: The normal \textbf {RGB} color space combines \leavevmode {\color {red}red} and \leavevmode {\color {blue}blue} to \leavevmode {\color {magenta}magenta},\leavevmode {\color {blue}blue} and \leavevmode {\color {green}green} to \leavevmode {\color {cyan}cyan}, \leavevmode {\color {green}green} and \leavevmode {\color {red}red} to \leavevmode {\color {yellow}yellow}, and all three to white) or subtractively (\textit {(b)}: the \textbf {CMY} color space combines colors subtractively by removing the selected colors from a pure white color).\relax }}{VI}{figure.caption.31}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.3}{\ignorespaces Presenting images using other color spaces than the ordinary \textbf {RGB} color space can yield interesting result. \textit {(a)}: Image show in the ordinary \textbf {RGB} color space. \textit {(b)}: The same image as in \textit {(a)} but show in \textbf {RGB} representation using \textbf {CMY} color values.\relax }}{VII}{figure.caption.32}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.4}{\ignorespaces Different color spaces uses different coordinates to represent the color room. In \textit {(a)} we see the \textbf {RGB} color space which is spanned by orthonormal basis, whereas in \textit {(b)} which shows the \textbf {HSI} color space uses an angle, a radius and a height instead.\relax }}{VIII}{figure.caption.33}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.5}{\ignorespaces It is not evident from the \textbf {RGB} representation of the \textbf {HSI} color image shown in \textit {(a)} that the colors can be grouped based on one color channel, but is clearer from the Hue channel in \textit {(b)}, which shows large groupings for different parts of the image. The Saturation channels shows occasional grouping in \textit {(c)} but is not as uniform as the Hue, and the Intensity in \textit {(d)} shows large variations.\relax }}{X}{figure.caption.34}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.6}{\ignorespaces \relax }}{XIII}{figure.caption.37}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {C.7}{\ignorespaces In \textit {(a)} we can see the capturing of light in the \textbf {nRGB} color space. In order to display it using \textbf {RGB} color channels, we need to modify the wavelengths to the ordinary of \textbf {RGB} colors. This modification of the near infrared channel is showns in \textit {(b)}.\relax }}{XIV}{figure.caption.38}

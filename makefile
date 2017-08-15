@@ -2,13 +2,14 @@ MC=pdflatex
 BC=bibtex
 CFLAGS=-shell-escape -synctex=1 -interaction=nonstopmode
 FILE=Main
-RM = del /Q
+
 
 ifdef SYSTEMROOT
    RM = del /Q
    FixPath = $(subst /,\,$1)
 else
    ifeq ($(shell uname), Linux)
+      RM = rm -f
       FixPath = $1
    endif
 endif

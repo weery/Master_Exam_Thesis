@@ -1,0 +1,51 @@
+
+\tikzstyle{block} = [draw=none,top color=blue!40,rounded corners=1em,bottom color=blue!5,shade, rectangle, minimum height=1.5cm,minimum width=2.5cm,drop shadow=black!80]
+
+\tikzstyle{blockLast} = [draw=none,top color=blue!40,rounded corners=1em,bottom color=blue!5,shade, rectangle, minimum height=1.5cm,minimum width=2.5cm,drop shadow=black!80]
+
+\tikzstyle{back} = [draw=none,top color=blue!10,bottom color=blue!5,fill=white, rectangle,rounded corners=1em, minimum height=1.5cm,minimum width=2.5cm,drop shadow=black!80]
+
+\tikzstyle{blockB} = [draw=none,fill=black,rounded corners=0.5em, rectangle, minimum height=1.5cm,minimum width=2.5cm,drop shadow=black!80]
+
+\tikzstyle{lightning} = [draw=none, fill= black, rounded corners= 0.25em, rectangle,minimum height=0.4cm, minimum width = 0.5 cm]
+\tikzstyle{lightning2} = [draw=none, fill= black, rounded corners= 0.25em, rectangle,minimum height=0.3cm, minimum width = 0.1cm]
+\tikzstyle{lightning3} = [draw=none, fill= yellow, rounded corners= 0.25em, rectangle,minimum height=0.1cm, minimum width = 0.35cm]
+
+\tikzstyle{click} = [draw=none, fill=red, rectangle,minimum height=0.1cm, minimum height=0.01cm]
+
+\tikzstyle{lins} = [draw=none, fill=white, circle, minimum height=1.0cm]
+\tikzstyle{lins2} = [draw=none, fill=blue!25, circle, minimum height=0.7cm]
+
+\begin{tikzpicture}[auto, on grid,>=stealth]
+	every node./style={rounded corners}
+    % We start by placing the blocks
+
+	% Camera
+	\node [blockB] (data) {data};
+	\node [click, above left=0.8cm and 0.7cm of data] (click) {};
+	\node [lightning2, above right = 0.8cm and 0.45cm of data] (lightning2) {};
+	\node [lightning, above right = 1.0cm and 0.45cm of data] (lightning) {};
+	\node [lightning3, above right = 1.0cm and 0.45cm of data] (lightning3) {};
+	\node [lins, right = 0.45cm of data] (lins) {};
+	\node [lins2, right = 0.45cm of data] (lins2) {};
+	\node [block, right = 3.2cm of data] (preprocessing) {Pre-processing};
+	\node [block, right = 3.2cm of preprocessing] (algorithm) {Algorithm};
+	\node [blockLast, right = 3.2cm of algorithm] (classification) {Classification};
+
+	\coordinate[above right= -0.7cm and 3.2cm of algorithm] (flowerBase);
+	\coordinate[above= 1.0cm of flowerBase] (flowerHead);
+	\coordinate[above = 0.8 of flowerBase] (flowerLeave);
+
+	\draw[-,thick,green] (flowerBase) to [out=120,in=300](flowerHead);
+
+	\draw[draw=none,fill=red, anchor = west] (flowerHead) circle [x radius=0.3cm, y radius=0.1cm, rotate=30];
+	\draw[draw=none,fill=red, anchor = west] (flowerHead) circle [x radius=0.3cm, y radius=0.1cm, rotate=90];
+	\draw[draw=none,fill=red, anchor = west] (flowerHead) circle [x radius=0.3cm, y radius=0.1cm, rotate=150];
+	\draw[draw=none, fill= yellow, anchor=west] (flowerHead) circle [radius=0.075cm];
+	\draw[draw=none, fill=green,anchor=west] (flowerLeave)+(0.23cm,-0.3cm) circle[x radius =0.3cm, y radius=0.1cm, rotate=15];
+	\draw[draw=none, fill=green,anchor=east] (flowerLeave)+(-0.23cm,-0.22cm) circle[x radius =0.3cm, y radius=0.1cm, rotate=135];
+
+	\draw[->] (data) -- (preprocessing);
+	\draw[->] (preprocessing) -- (algorithm);
+	\draw[->] (algorithm) -- (classification);
+\end{tikzpicture}

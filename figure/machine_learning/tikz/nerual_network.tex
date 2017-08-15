@@ -1,0 +1,53 @@
+\tikzstyle{block} = [draw=none,top color=blue!40,rounded corners=1em,bottom color=blue!5,shade, rectangle, minimum height=1.5cm,minimum width=2.5cm,drop shadow=black!80]
+
+\tikzstyle{lUnit} = [draw=none,top color=blue!40,rounded corners=1em,bottom color=blue!5,shade, circle, minimum height=1.5cm,minimum width=1.5cm,drop shadow=black!80]
+
+
+\tikzstyle{back} = [draw=none,top color=blue!10,bottom color=blue!5,fill=white, rectangle,rounded corners=1em, minimum height=1.5cm,minimum width=2.5cm,drop shadow=black!80]
+
+\tikzstyle{textB} = [draw=none,style={align=center}];
+
+\begin{tikzpicture}[auto, on grid,>=stealth]
+	every node./style={rounded corners}
+
+	% Node placement
+	\node [lUnit] (input1) {$x_1$};
+	\node [lUnit, above = 2.2cm of input1] (inputBias) {$x_0=1$};
+	\node [textB, above = 1.7cm of inputBias] (inputLabel) {Input\\ Layer};
+	\node [above = -1.7cm of input1] (inputDots) {$\vdots$};
+	\node [lUnit,above = -1.7cm of inputDots] (inputn) {$x_n$};
+
+	\node[lUnit, right = 4.0 cm of inputBias] (hiddenBias) {$1$};
+	\node[lUnit, above = -2.2cm of hiddenBias] (hidden1) {$g(z^{(1)}_1)$};
+
+	\node[above = -1.7 cm of hidden1] (hiddenDots) {$\vdots$};
+
+	\node[lUnit, above = -1.7 cm of hiddenDots] (hiddenk) {$g(z^{(1)}_k)$};
+
+	\node [textB, right = 4.0cm of inputLabel] (hiddenLabel) {Hidden\\ Layer};
+
+	\node [textB, right = 4.0cm of hiddenLabel] (outputLabel) {Output\\ Layer};
+	\node[lUnit, right = 4.0cm of hidden1] (outputUnit1) {$g(z^{(2)}_1)$};
+	\node[above = -1.7 cm of outputUnit1] (outputDots) {$\vdots$};
+	\node[lUnit, above = -1.7 cm of outputDots] (outputUnitm) {$g(z^{(2)}_m)$};
+
+	\node[textB, right = -1.0cm of inputBias, anchor =east] (biasLabel) {Bias};
+
+	\draw[-, dashed, thick] (biasLabel) + (0,-1.175cm) -- ++(10.0cm,-1.175cm);
+
+	% Lines between nodes
+	\draw [->, thick] (inputBias) -- node[above]{$\omega^{(1)}_{1,0}$} (hidden1);
+	\draw [->, thick] (input1) -- node[above]{$\omega^{(1)}_{1,1}$} (hidden1);
+	\draw [->, dashed, thick] (inputn) -- (hidden1);
+	\draw [->, thick] (hidden1) -- node[above]{$\omega^{(2)}_{1,1}$}(outputUnit1);
+	\draw [->, thick] (hidden1) -- node[above]{$\omega^{(2)}_{m,1}$}(outputUnitm);
+
+	\draw [->, thick] (hiddenBias) -- node[above]{$\omega^{(2)}_{1,0}$}(outputUnit1);
+	\draw [->, thick] (hiddenBias) -- node[above]{$\omega^{(2)}_{m,0}$}(outputUnitm);
+
+	\draw [->, thick] (inputBias) -- node[right]{$\omega^{(1)}_{m,0}$} (hiddenk);
+	\draw [->, dashed, thick] (input1) -- (hiddenk);
+	\draw [->, thick] (inputn) -- node[above]{$\omega^{(1)}_{m,n}$} (hiddenk);
+	\draw [->, thick] (hiddenk) -- node[above]{$\omega^{(2)}_{1,2}$}(outputUnit1);
+	\draw [->, thick] (hiddenk) -- node[above]{$\omega^{(2)}_{m,2}$}(outputUnitm);
+\end{tikzpicture}

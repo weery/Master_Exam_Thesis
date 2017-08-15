@@ -6,10 +6,23 @@
 \vspace{6ex}
 \end{center}
 
+\section{Data aquisition}
 
+\begin{itemize}
+    \item Data
+    \begin{itemize}
+        \item Aquisition
+        \item Instruments
+        \item Preprocessing
+    \end{itemize}
+    \item Methods
+    \begin{itemize}
+        \item Feature selection
+        \item Algorithm evaluation
+    \end{itemize}
+\end{itemize}
 
-
-\section{Method}
+This project classifies data on two different scales, one that is quantitative and the other qualitative. These different datasets are labeled differently and will be processed in different manners. The qualitative data set has been provided as a test set from a previous masters thesis by mAndersson \cite{m_nadersson}. This set has been completely labeled and the images of the different plants are of the highest quality, containing a small amount of noise. It is on this set the supervised learning will be applied as the whole process from pre-processing to features is streamlined. h
 
 First part of the project is data acquisition, and currently there are two different desirable approaches, both with different advantages and disadvantages.\\
 
@@ -25,16 +38,69 @@ The next part is image segmentation in order to extract the parts of the picture
 
 When the position of each plant is determined, it is time to perform two classification problems on the dataset. The first is a binary classification, is the plant a crop or a weed, and the second is only performed on the weeds given from the first classification. During this part the kind of weed should be determined. Given the distinct features in each of these classes different methods will be considered. If the features is easily distinguished between the classes, e.g. shape and color, then classification methods such as linear or quadratic discrimination will be considered as well as support vector machines. If the classification part seems to be more complex, a machine learning approach be more appropriate, such as a convolutional neural network. This approach is actually preferable as it is easier to scale to include more classes in the future, but I might be limited by the amount of data accessible, since this approach requires a large amount of data.\\
 
-\section{}
-Material beskriver vilka komponenter som ingår i de
-laborationer som har utförts samt övrigt material som har
-använts. Utelämna inget men texten bör vara koncis snarare än
-uttömmande. Försök därför lyfta ut och beskriva centrala delar
-ur exempelvis laborationsinstruktioner (exempelvis instrument,
-instrumentinställningar, kemikaliekoncentrationer), och
-kravspecifikationer i texten. Lista inte allt utan lägg hellre långa
-instruktioner och protokoll som bilagor och hänvisa till dessa.
-Syftet med Material och Experiment/Metod är att en laboration
-ska kunna återskapas eller ett projekt ska kunna utvärderas mot
-bakgrund av metodval och genomförande.
-Material och Metod kan vara två separata avsnitt/kapitel. 
+\section{Instruments}
+
+Basically, the only instruments used for this project is the cameras which the iamges was aquired with. The qualitative test set was provided from another master thises\cite{mansersson}, and the iamges was taken with a CANNON SOMETHING. The quantitatve data set was aquired using CANON ANNAN camera with a near infrared channel instead of the red.
+
+\section{Preprocessing}
+
+From the two different cameras we have two different types of images. The first one from the previous master's thesis is a very clean data set. It does not contain much noise from other object than those being
+
+
+
+\section{Algorithm evaluation}
+
+\section{Feature selection}
+
+In the previous chapter.~\ref{Information_extraction} we introduced a plethora of features for object recognition, but not all of these are relevant for the classification or might even be worsening the results. There are several ways to obtain a good combination of features using different techniques.
+
+\subsection{Forward selection}
+
+Forward selection is a very straight forward technique of choosing features, it does not retrieve the best combination but it sacrifices the absolut best for speed. One starts with the single feature which gives best result to the algorithm and then combining this feature with every other feature. The combination which yields the best result is selected for the next pass of the selection. The selection continues by testing the previous combination with every non-selected feature, progressively combining more features and decreasing error-rates. The number of features is then selected when the error-rates start to increase again or after a set number of features.
+
+\subsection{Backward selection}
+
+Backward is as the name suggest the same as forward selection but in reverse. Instead of starting with one feature and add one each pass, we start with all features and remove the one that changes the error-rate the most. This method works when using all features provides superflous information and only provides negative impact on the classification.
+
+\subsection{Best combination}
+
+Instead of progressively add/subtract one feature, the best combination tests all possible combination of features at each number of features. This method ensures to find the absolutely best combination as it testa all cases, but the down side is that is very computationally expensive.
+
+\subsection{Principal component analysis}
+
+det som ska användas till neurala nätverk
+
+\section{Algorithm Evaluation}
+
+To make sure an algorithm is mature enough for the real world we need to know how well it performs on data it has not seen before, that is how well it has learned the underlying structure of the data. This can not be done without extra data as presenting it with the same data as it has been trained for is superflous, it is like studiying for an exam by reviewing only previous tests without considering the background theories. In order to simulate this real world senario we will only show the model a certain set of the data and only after the training is done it will see the rest. This makes sure the model can be evaluated on data is has not been trained on and also gives us a way to measure how well it has generalised the problem.
+
+\subsection{Training and validation sets}
+
+For the quadratic discriminant classifier, the parameters for the model is directly related to the data used for training it. It would not be possible how well the model has generalised the data using the availiable data. To get an estimate how well the problem has been modeled it is common to separate the training data in a training and a validation set, where the training set is only used for the training process and the validation set is used to validate the current training. This ensures the model is tested on new data. One problem, though, is when the model is dependent on hyperparameters such in the case of the nerual networks with its activation function, network types and number of layers. If one would separate the availiable data in training and validation sets, and then select the hyperparameters which gives the best result for the validation set, one has basically overfitted the problem to match the validation set.
+
+\subsubsection{Training, validation, and test sets}
+
+The most common way to evaluate the performance of an nerual network is to divide the data set in not only two but three different sets; namely training, validation and test sets. The network is trained on the training set for a number of epochs, and then evaluated on the validation set. This continues as long as the validation error continues to decrese, but can start increase again while the training error is sill declining. The reason for this is that the model has stopped learning the general features of the data sets and start to overfit the training data. This gives a well defined stop criterion for the training of the network, and the epoch of the network which minimizes the validation set for that specific set of hyperparameters is then tested on the test set. Choosing the epoch which minimizes the validation set and choosing the hyperparameters which minimimizes the test set gives ensures that the model has neither overfitted the training data nor overfitted the hyperparameters for the validation.\\
+
+Although this is the most common way to validate nerual networks, it is not the way we will validate the networks in this project. The reason is that we have to few data points to consider in the first place and to compare the nerual networks to the quadratic discriminant using different evaluation methods does not seem inviting. There is no reason to train the quadratic discriminant in this way as there are no hyperparameters in that model.
+
+\subsubsection{$K$-fold cross validation}
+
+Instead of dividing the data in three sets, we will keep the training and validation sets and use a method called, $K$-fold cross validation. This method is good for evaluating a model when there are a small number of training data or many features compared with the data. To use this method one would randomize the order of all the availiable data and assign them in $K$ different groups of the same size. The chosen model is then trained on $K-1$ of these folds and then evaluated on the last. This is repeated $K$ times, so that each fold has been the validation set once. The total error of the training is then the average over the $K$ different combinations. This process can be repeated over different hyperparameters to ensure those parameters model the entire data set and not just one combination of validation set.
+
+\paragraph{Visual example of 3-fold cross validation}
+
+To give the reader a better understanding of the method, a visual example will be given here using $K=3$. The data is divided into three groups as seen in figure.~\ref{fig:dartWheel}. Each data point is then assigned a new random group and then the data is grouped together as in figure.~\ref{fig:randomWheel}.
+
+\begin{figure}[H]
+\centering
+\input{./figure/result/Quadratic/dartWheel}
+\caption{\label{fig:dartWheel} The simplest way to divide the data into several groups is just to select the groups in order.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{./figure/result/Quadratic/randomWheel}
+\input{./figure/result/Quadratic/orderedRandomWheel}
+\caption{\label{fig:randomWheel} To make the grouping stochastic, each number if assigned a new random group, while still ensuring the group sizes remain the same. The new groups can then be placed together for easy access.}
+\end{figure}

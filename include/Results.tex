@@ -6,42 +6,9 @@
 \end{center}
 
 
+\section{Image segmentation}
 
-
-\section{Method}
-\section{}
-Återger resultat från observationer och datorstödda
-analyser/mätningar. Vanligtvis återges resultat i form av
-figurer, tabeller, grafer, eller fotografier men det är avgörande
-att även förse dessa med tillräckliga kommentarer för att belysa
-resultatets värde och eventuella avvikelser eller oväntade
-resultat. Givetvis ska resultatavsnittet också bestå av text som
-binder samman illustrationerna.
-Beroende på experiment eller metod bör skribenter ange och
-berättiga beräkningar och formler som ligger till grund för
-tolkningen av resultat och datorstödd analys. I vissa fall måste
-även primärdata anges för att resultat ska bli meningsfulla och
-kunna diskuteras. Med primärdata avses obehandlade mätdata.
-Notera att detta inte är tillämpligt i alla enskilda fall. Fråga din
-ämneshandledare.
-
-\section{}
-Återger resultat från observationer och datorstödda
-analyser/mätningar. Vanligtvis återges resultat i form av
-figurer, tabeller, grafer, eller fotografier men det är avgörande
-att även förse dessa med tillräckliga kommentarer för att belysa
-resultatets värde och eventuella avvikelser eller oväntade
-resultat. Givetvis ska resultatavsnittet också bestå av text som
-binder samman illustrationerna.
-Beroende på experiment eller metod bör skribenter ange och
-berättiga beräkningar och formler som ligger till grund för
-tolkningen av resultat och datorstödd analys. I vissa fall måste
-även primärdata anges för att resultat ska bli meningsfulla och
-kunna diskuteras. Med primärdata avses obehandlade mätdata.
-Notera att detta inte är tillämpligt i alla enskilda fall. Fråga din
-ämneshandledare.
-
-\section{Segmentation}
+\subsection{Data set 1}
 
 \begin{figure}[H]
     \centering
@@ -98,6 +65,7 @@ Notera att detta inte är tillämpligt i alla enskilda fall. Fråga din
     \label{fig:1}
 \end{figure}
 
+\subsection{Data set 2}
 
 \begin{figure}[H]
     \centering
@@ -118,7 +86,27 @@ Notera att detta inte är tillämpligt i alla enskilda fall. Fråga din
     \label{fig:result_segmentation_2}
 \end{figure}
 
-Using the same algorithm on the data received on a field without alterations, and also quite late in the development does not give good result as can be seen in figure \ref{fig:result_segmentation_2}. This is due several reason, first we can see that there are more than one interesting plant in the picture, and from the results we see that only a part of a plant is given. This is where the convolutional neural networks come in for the first time, using a convolutional neural network one can train the networks to segment the image into several important parts. Using this network to classify segments of an image could be done as prework and then the normal classification using a normal feed forward network or just the quadratic classifier, but why stop here when we have already integrated a CNN, why not use it in series with another CNN to only train one big network instead of using several different parts of the classification. 
+Using the same algorithm on the data received on a field without alterations, and also quite late in the development does not give good result as can be seen in figure \ref{fig:result_segmentation_2}. This is due several reason, first we can see that there are more than one interesting plant in the picture, and from the results we see that only a part of a plant is given. This is where the convolutional neural networks come in for the first time, using a convolutional neural network one can train the networks to segment the image into several important parts. Using this network to classify segments of an image could be done as prework and then the normal classification using a normal feed forward network or just the quadratic classifier, but why stop here when we have already integrated a CNN, why not use it in series with another CNN to only train one big network instead of using several different parts of the classification.
+
+
+\section{Method}
+\section{}
+Återger resultat från observationer och datorstödda
+analyser/mätningar. Vanligtvis återges resultat i form av
+figurer, tabeller, grafer, eller fotografier men det är avgörande
+att även förse dessa med tillräckliga kommentarer för att belysa
+resultatets värde och eventuella avvikelser eller oväntade
+resultat. Givetvis ska resultatavsnittet också bestå av text som
+binder samman illustrationerna.
+Beroende på experiment eller metod bör skribenter ange och
+berättiga beräkningar och formler som ligger till grund för
+tolkningen av resultat och datorstödd analys. I vissa fall måste
+även primärdata anges för att resultat ska bli meningsfulla och
+kunna diskuteras. Med primärdata avses obehandlade mätdata.
+Notera att detta inte är tillämpligt i alla enskilda fall. Fråga din
+ämneshandledare.
+
+
 
 
 
@@ -131,11 +119,11 @@ Using the same algorithm on the data received on a field without alterations, an
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 \textbf{\begin{tabular}[c]{@{}l@{}}Feature \\ Number\end{tabular}} & \multicolumn{1}{c|}{1}                                   & \multicolumn{1}{c|}{2}                                   & \multicolumn{1}{c|}{3}                                   & \multicolumn{1}{c|}{4}                                      & \multicolumn{1}{c|}{5}                              \\ \hline
-\textbf{\begin{tabular}[c]{@{}l@{}}Feature \\ Name\end{tabular}}   & From                                                     & Elog                                                     & Conv                                                     & Solid                                                       & \begin{tabular}[c]{@{}l@{}}mean \\ Red\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Feature \\ Name\end{tabular}}   & Form factor                                                     & Elognatedness                                                     & Convexities                                                     & Solidities                                                       & \begin{tabular}[c]{@{}l@{}}Mean \\ Red\end{tabular} \\ \hline
 \textbf{\begin{tabular}[c]{@{}l@{}}Feature \\ Number\end{tabular}} & \multicolumn{1}{c|}{6}                                   & \multicolumn{1}{c|}{7}                                   & \multicolumn{1}{c|}{8}                                   & \multicolumn{1}{c|}{9}                                      & \multicolumn{1}{c|}{10}                             \\ \hline
-\textbf{\begin{tabular}[c]{@{}l@{}}Feature \\ Name\end{tabular}}   & \begin{tabular}[c]{@{}l@{}}Mean \\ green\end{tabular}    & \begin{tabular}[c]{@{}l@{}}Mea \\ blue\end{tabular}      & \begin{tabular}[c]{@{}l@{}}std \\ Red\end{tabular}       & \begin{tabular}[c]{@{}l@{}}Std \\ green\end{tabular}        & \begin{tabular}[c]{@{}l@{}}Std \\ blue\end{tabular} \\ \hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Feature \\ Name\end{tabular}}   & \begin{tabular}[c]{@{}l@{}}Mean \\ green\end{tabular}    & \begin{tabular}[c]{@{}l@{}}Mean \\ blue\end{tabular}      & \begin{tabular}[c]{@{}l@{}}Standard \\ Deviation \\ Red\end{tabular}       & \begin{tabular}[c]{@{}l@{}}Standard \\ Deviation \\ Red\end{tabular}        & \begin{tabular}[c]{@{}l@{}}Std \\ blue\end{tabular} \\ \hline
 \textbf{\begin{tabular}[c]{@{}l@{}}Feature \\ Number\end{tabular}} & \multicolumn{1}{c|}{11}                                  & \multicolumn{1}{c|}{12}                                  & \multicolumn{1}{c|}{13}                                  & \multicolumn{1}{c|}{14}                                     & \multicolumn{1}{c|}{}                               \\ \hline
-\textbf{\begin{tabular}[c]{@{}l@{}}Feature \\ Name\end{tabular}}   & \begin{tabular}[c]{@{}l@{}}area\\  moment 1\end{tabular} & \begin{tabular}[c]{@{}l@{}}area \\ moment 2\end{tabular} & \begin{tabular}[c]{@{}l@{}}area\\  moment 3\end{tabular} & \begin{tabular}[c]{@{}l@{}}perimeter \\ moment\end{tabular} &                                                     \\ \hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Feature \\ Name\end{tabular}}   & \begin{tabular}[c]{@{}l@{}}Area\\  Moment 1\end{tabular} & \begin{tabular}[c]{@{}l@{}}Area \\ Moment 2\end{tabular} & \begin{tabular}[c]{@{}l@{}}Area\\  Moment 3\end{tabular} & \begin{tabular}[c]{@{}l@{}}Perimeter \\ Moment\end{tabular} &                                                     \\ \hline
 \end{tabular}
 \end{table}
 
@@ -166,26 +154,11 @@ Using the same algorithm on the data received on a field without alterations, an
 
 As we can see in Figure~\ref{fig:backforSelection}, many of the defined features are present when selecting the best combinations of features using both the backward and forward selection algorithm. In both cases, the class of features which are neglected the most are the moment invariant features. During these algorithms $K-$crossvalidation was used with $K=3$, i.e. the different plants was randomly divided into 9 different group with 3 plants in each. This grouping is different in each run and might thus yield different results for different runs. To make this more consistent, the grouping could be done using increasing the dart wheel as in Figure~\ref{fig:dartWheel} indexing instead of the random distribution in Figure~\ref{fig:randomWheel}.
 
-With much patients the absolute best combination was found by combining the best $n$ features together. This can be seen in Figure~\ref{fig:combSelection}. The result from using this algorithm will only be used in a best case scenario when comparing to other methods later as this algorithm is very slow compared to the other. The feature selection process usually takes place before the classification is done, thought, if one would find a new feature that might give more information this whole process would need to be made again and thus a fast algorithm is preferred. 
-
-
-\begin{figure}
-\centering
-\input{./figure/result/Quadratic/dartWheel}
-\end{figure}
-
-\begin{figure}
-\centering
-\input{./figure/result/Quadratic/randomWheel}
-\input{./figure/result/Quadratic/orderedRandomWheel}
-\end{figure}
+With much patients the absolute best combination was found by combining the best $n$ features together. This can be seen in Figure~\ref{fig:combSelection}. The result from using this algorithm will only be used in a best case scenario when comparing to other methods later as this algorithm is very slow compared to the other. The feature selection process usually takes place before the classification is done, thought, if one would find a new feature that might give more information this whole process would need to be made again and thus a fast algorithm is preferred.
 
 
 
-\section{Results from using Neural Networks}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{./figure/result/NeuralNetworks/confusion.png}
-\caption{\label{fig:resut_NN_confusion}}
-\end{figure}
+\section{Results from neural networks}
+
+\section{Unsupervised problem}
