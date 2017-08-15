@@ -1,1 +1,5 @@
-"" 
+*.dpth
+*.idx
+*.log
+*.run.xml
+*.pdf
