@@ -3,7 +3,6 @@ BC=bibtex
 CFLAGS=-shell-escape -synctex=1 -interaction=nonstopmode
 FILE=Main
 
-
 ifdef SYSTEMROOT
    RM = del /Q
    FixPath = $(subst /,\,$1)
@@ -19,9 +18,6 @@ all: *.tex
 	$(BC) $(FILE)
 	$(MC) $(FILE).tex
 	$(MC) $(FILE).tex
-
-
-
 
 clean:
 	$(RM) $(FILE)-*
