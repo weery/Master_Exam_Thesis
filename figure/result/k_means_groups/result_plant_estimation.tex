@@ -1,0 +1,120 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}[scale=0.5]
+
+\begin{axis}[%
+width=4.521in,
+height=3.53in,
+at={(0.758in,0.517in)},
+scale only axis,
+xmin=0,
+xmax=0.3175,
+xlabel={Correct $\%$ Crops},
+ymin=0,
+ymax=0.14,
+ylabel={Estimated $\%$ Crops},
+x tick label style={/pgf/number format/fixed},
+y tick label style={/pgf/number format/fixed},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Estimation of crop density},
+legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=left,draw=white!15!black}
+]
+\addplot [color=red,only marks,mark=x,mark options={solid}]
+  table[row sep=crcr]{%
+0.3175	0.14\\
+};
+\addlegendentry{Training Data};
+
+\addplot [color=blue,only marks,mark=x,mark options={solid}]
+  table[row sep=crcr]{%
+0.125	0.0875\\
+};
+\addlegendentry{Test Data};
+
+\addplot [color=red,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.3175	0.14\\
+};
+\addplot [color=red,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.195	0.085\\
+};
+\addplot [color=red,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.1025	0.0675\\
+};
+\addplot [color=red,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.1375	0.0675\\
+};
+\addplot [color=red,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.135	0.105\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.125	0.0875\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.1575	0.0925\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.2125	0.08\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.1575	0.1\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.125	0.075\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.095	0.065\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.1125	0.09\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.1225	0.0825\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.12	0.0825\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.1375	0.0825\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.1125	0.06\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.16	0.135\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.1175	0.0725\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.0925	0.0625\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.0775	0.06\\
+};
+\end{axis}
+\end{tikzpicture}%

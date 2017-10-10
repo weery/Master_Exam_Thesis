@@ -5,7 +5,7 @@
 
 \tikzstyle{back} = [draw=none,top color=blue!10,bottom color=blue!5,fill=white, rectangle,rounded corners=1em, minimum height=1.5cm,minimum width=2.5cm,drop shadow=black!80]
 
-\tikzstyle{textB} = [draw=none,style={align=center}];
+\tikzstyle{textB} = [draw=none,style={align=center}]
 
 \begin{tikzpicture}[auto, on grid,>=stealth]
 	every node./style={rounded corners}
@@ -40,14 +40,14 @@
 	\draw [->, thick] (input1) -- node[above]{$\omega^{(1)}_{1,1}$} (hidden1);
 	\draw [->, dashed, thick] (inputn) -- (hidden1);
 	\draw [->, thick] (hidden1) -- node[above]{$\omega^{(2)}_{1,1}$}(outputUnit1);
-	\draw [->, thick] (hidden1) -- node[above]{$\omega^{(2)}_{m,1}$}(outputUnitm);
+	\draw [->, dashed, thick] (hidden1) -- (outputUnitm);
 
 	\draw [->, thick] (hiddenBias) -- node[above]{$\omega^{(2)}_{1,0}$}(outputUnit1);
-	\draw [->, thick] (hiddenBias) -- node[above]{$\omega^{(2)}_{m,0}$}(outputUnitm);
+	\draw [->, thick] (hiddenBias) -- node[right]{$\omega^{(2)}_{m,0}$}(outputUnitm);
 
-	\draw [->, thick] (inputBias) -- node[right]{$\omega^{(1)}_{m,0}$} (hiddenk);
+	\draw [->, thick] (inputBias) -- node[right]{$\omega^{(1)}_{k,0}$} (hiddenk);
 	\draw [->, dashed, thick] (input1) -- (hiddenk);
-	\draw [->, thick] (inputn) -- node[above]{$\omega^{(1)}_{m,n}$} (hiddenk);
-	\draw [->, thick] (hiddenk) -- node[above]{$\omega^{(2)}_{1,2}$}(outputUnit1);
-	\draw [->, thick] (hiddenk) -- node[above]{$\omega^{(2)}_{m,2}$}(outputUnitm);
+	\draw [->, thick] (inputn) -- node[above]{$\omega^{(1)}_{k,n}$} (hiddenk);
+	\draw [->, dashed, thick] (hiddenk) --(outputUnit1);
+	\draw [->, thick] (hiddenk) -- node[above]{$\omega^{(2)}_{m,k}$}(outputUnitm);
 \end{tikzpicture}

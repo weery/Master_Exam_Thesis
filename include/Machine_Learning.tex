@@ -4,203 +4,188 @@
 \textit{"Practice makes perfect"}
 \vspace{6ex}
 \end{center}
+\label{chap:machine}
 
-Machine learning is currently a buzzword, as of now there is a lot of hype around it and is maybe used when not necessary. In general, machine learning could be said to be creation of algrotihms which finds patterns in training data, without explicitly told exactly which, in order to make predictions on a new, but similar dataset. In the following chapter, different categories of machine learning tasks will be discussed and some algorithms for these problems. In the end of the chapter, some algorithms which goes outside the scope of this thesis application is also discussed.
+Machine learning is currently a popular concept, as there is a lot of hype around it even though it has existed for a long time under different names. In general, machine learning could be said to be the creation of algorithms which finds patterns in training data, without explicitly told exactly which, in order to make predictions on a new, but similar dataset. In the following chapter, different categories of machine learning types will be discussed and some algorithms for these problems, most of the information has been gathered from Christopher Bishop's, \textit{Pattern Recognition and machine learning}\cite{bishop_pattern}. At the end of the chapter, some algorithms which goes outside the scope of this thesis application is also discussed which could be used for extending the project.
 
+\section{Machine Learning types}
 
-
-\section{Machine Learning}
-
-As described above, applied machine learning uses an algorithm, which is trained on some data and the result is applied to other data. The machine learning can be divided into different classes depending on how the format on the data, and how the training is on the algorithm is done.
+As described above, applied machine learning uses an algorithm, which is trained on some data and the result is applied to other data. The machine learning field can be divided into different classes depending on the format on the data, and how the training of the algorithm is performed.
 
 \subsection{Supervised Learning}
 
-The intended outcome of a supervised learning algorithm is often very clear. As the name suggsets, the training process could be said to be observed by a teacher, which rewards the algorithms based on a payoff. If the algorithms behaves correctly for some training instance it will be encouraged to do the same for similar data, but if the algorithms makes misstakes it is penalized and should change its behaviour. Examples of these kinds of systems are classification and regression, where the answers are known during the training process, e.g. a system which should learn to distinguish images of cats and dogs, the supervising teacher knows the correct class of the training image and tells the algorithms whether it labels the image correctly or not.
+The intended outcome of a supervised learning algorithm is often very clear. As the name suggests, the training process could be said to be observed by a teacher, which rewards the algorithms based on a pay-off. If the algorithm behaves correctly for some training instance it will be encouraged to do the same for similar data, but if the algorithm makes a mistake it is penalized and should change its behaviour. Examples of these kinds of systems are classification and regression, where the answers are known during the training process, e.g. a system which should learn to distinguish images of cats and dogs, the supervising teacher knows the correct class of the training image and tells the algorithm whether it labels the image correctly or not and updates accordingly.
 
 \subsection{Unsupervised Learning}
+\label{sec:unsuper}
 
-As opposed to supervised learning, in unsupervised learning the algorithms is supposed to find its own answers. This might sound strange but it can be used to find structure in data without knowing what to look for. This is useful for finding hidden patterns and can be used in a classification sequence preceding a supervised learning part. These kinds of learning methods can be used in e.g. clustering or feature learning.
+As opposed to supervised learning, in unsupervised learning the algorithm is supposed to find its own answers. This might sound strange but it can be used to find structure in data without knowing what to look for. This is useful for finding hidden patterns and can be used in a classification sequence, preceding a supervised learning part. These kinds of learning methods can be used in e.g. clustering or feature learning.
 
 \subsection{Reinforcement Learning}
 
-Reinforced machine learning problems are quite different from un-/supervised learning problems, as the output of an input is often not evaluatable. To give an example of such a system could be a robot which is supposed to navigate in its surounding with a goal of moving from point $A$ to point $B$. THe inpouts of the algorithm could be different kinds of sensor values and the output is the soutgoing signal to its actuators. There is not a obvious output at each pass of sensor values to the actuators, since there are an infinite number of ways to get between two points. The payoff of the algorithms should therefore be based on how well the entire task is performed. Another example is a chess playing algorithms, based on the state of the board there might be an optimal move for that exact setup, but a good chess player needs to be able to consider several succesive moves at each state. Thus, the algorithm should be evaluated based on whether it won the game or not instead on its individual moves.
+Reinforced machine learning problems are quite different from un-/supervised learning problems. The output of an input is often not evaluable. To give an example of such a system could be a robot which is supposed to navigate in its surrounding with a goal of moving from point $A$ to point $B$. The inputs of the algorithm could be different kinds of sensor values and the output is the out going signal to its actuators. There is not an obvious output at each pass of sensor values to the actuators, since there are an infinite number of ways to get between two points. The payoff of the algorithm should therefore be based on how well the entire task is performed. Another example is a chess playing algorithm, based on the state of the board there might be an optimal move for that exact setup, but a good chess player needs to be able to consider several succesive moves at each state. Thus, the algorithm should be evaluated based on whether it won the game or not, instead on its individual moves. During training, the algorithm is not fed an desired value but rather updates the parameters depending on if the algorithm performed well or not.\cite{bishop_neural}
 
 \subsection{Deep Learning}
 
-Deep learning is techniqually a subset of the other learning techniques, but what is special about it is the complexity of the model. It is usually a combination of several un-/supervised learning algorithms layered on top of each other, making the learning process learn in many steps, thus deep learning. The advantages of such an algorithms is its ability to learn complex and abstract patterns, but the disadvantage is that is requires an enormous amount of data. E.g. in a image classifier, it can learn what parts of an image is relevant an require less preprocessing than other models.
+Deep learning is technically a subset of the other learning techniques, but what is special about it is the complexity of the model. It is usually a combination of several un-/supervised learning algorithms layered on top of each other, making the learning process learn in many steps, thus deep learning. The advantages of such an algorithm is its ability to learn complex and abstract patterns, but the disadvantage is that it requires an enormous amount of data. E.g. in an image classifier, it can learn what parts of an image is relevant and require less preprocessing than other models.
 
+\section{Clustering}
 
-
-\section{Unsupervised Learning}
-
-In unsupervied learning we want to find order in the data we are studying. This kind of learning is often called clustering which will be apparent when describing the following algorithm.
+In unsupervised learning we want to find order in the data we are studying. This kind of learning is often called clustering which will be apparent when describing the following algorithm.
 
 \subsection{k-means clustering}
 
-If one would plot the data in a graph, there would probably be some regions that are more dense than others. A clustering algorithm would try to group the data in the regions together without knowing if they are related or not, thus unsupervised learning. A simple and effective algorithm to group the data in $k$ clusters is to select $k$ means which represents the regions. A data point belongs to group $c$ if the cluster mean $m_c$ is the closest one, using euclidead distance, $d_i^2 = \sum_{j}(x_j-m_{i,j})^2 $. This is called the $k$-means clustering.\\
+If one would plot some data in a graph, there would probably be some regions that are more dense than others. A clustering algorithm would try to group the data in the regions together without knowing if they are related or not, thus unsupervised learning. A simple and effective algorithm to group the data in $k$ clusters is to select $k$ means which represents the regions. A data point belongs to group $c$ if the cluster mean $m_c$ is the closest one, using euclidean distance, $d_i^2 = \sum_{j}(x_j-m_{i,j})^2 $, where the data is represented by $x_j$. This is called the $k$-means clustering.\\
 
-The algorithm is training by updating these centroids $m_i$ until the algorithm has converged. The clusters are initialized by assigning $k$ training data points as the different centroids. The distance for each training points are calculated to the centroids and the current group $S_i$ which is closest to the centroid $m_i$ is assigned to the points. The centroids are updated according to,
+The algorithm is trained by updating these means, or centroids, $m_i$ until the algorithm has converged. The clusters are initialized by assigning $k$ training data points as the different centroids. The distance for each training points are calculated to the centroids and the current group $S_i$ which is closest to the centroid $m_i$ is assigned to the points. The centroids are updated according to,
 
 \begin{equation}
     m_i = \frac{1}{\#S_i}\sum_{x_j\in S_i}{x_j},
 \end{equation}
 
-where $\#S_i$ is the number of training points in group $i$. This is a great algorithm for grouping clusters that are linearlty separable. What this mean is that the clusters are separated by a hyperplane, but this is what limits this algorithm, if the data is better separable by, say a circle, then this clearly fails. One way to tackle this, while keeping the founding algorithm, is by introducing another distance measure. The change of distance functions, also called the kernel trick, could be introduced here, but it still poses another problem, namely the choise of distance measure. The selection of parameters chosen in a machine learning algorithm is a large factor of its performance, and the choise of the distance function here is dependant on the way the data is clustered. If we do not really know how the data is clustered, then there is no real way to define a distance function to separate them, instead we will take the approach of applying non-linear transformations on the data and separate the transformed data, together with the orignal, linearly. This is generally not how you would like to thing as you are basically introducing redundancies, but hopefully making the data more complex gives us the opportunity to retain the simpler model.
-
-\subsection{Ev mixture models}
+where $\#S_i$ is the number of training points in group $i$. This is a useful algorithm for grouping clusters that are linearly separable. What this mean is that the clusters are separated by a hyperplane, but this is what limits this algorithm, if the data is better separable by, say a circle, then this clearly fails. One way to tackle this, while keeping the founding algorithm, is by introducing another distance measure instead of the euclidean. The change of distance functions, also called the kernel trick, could be introduced here, but it still poses another problem, namely the choice of distance measure. The selection of parameters chosen in a machine learning algorithm is a large factor of its performance, and the choice of the distance function here is dependent on the way the data is clustered. If we do not really know how the data is clustered, then there is really no way to define a distance function to separate them, instead we will take the approach of applying non-linear transformations on the data and separate the transformed data, together with the original, linearly. This is generally not how you would like to thing as you are basically introducing redundancies, but hopefully making the data more complex gives us the opportunity to retain the simpler model.
 
 
 \section{Supervised Learning for multiclass classification}
 
 \subsection{Quadratic Discriminant Analysis}
 
-Our first multiclass classification will be the so called Quadratic Discriminant. For this classifier we will model our classes with a class conditional distribution,
+Our first multiclass classifier will be the so called Quadratic Discriminant. For this classifier we will model our classes with a class probability density,
 
-$P(X|K=k)$. This distribution tells us what is the probability of seeing the studied data $X$ given that we are in the class $k$. We will also assume that the features from plants in a class vary as a multvariate Gaussian distribution, i.e.
+$P_X(x|C=c)$. This distribution tells us the probability density of seeing the studied data $x$ given that we are in the class $c$. We will assume that the features in a class vary as a multivariate Gaussian distribution, i.e.
 
 
 \begin{equation}
-P(X|C=c)=\frac{1}{(2\pi)^D|\Sigma_c|^{1/2}}exp\left(-\frac{1}{2}(\bm{x}-\bm{\mu}_c)^{T}\bm{\Sigma}^{-1}_c(\bm{x}-\bm{\mu}_c)\right),
+P_X(x|C=c)=\frac{1}{(2\pi)^D|\bm{\Sigma}_c|^{1/2}}exp\left(-\frac{1}{2}(\bm{x}-\bm{\mu}_c)^{T}\bm{\Sigma}^{-1}_c(\bm{x}-\bm{\mu}_c)\right),
 \end{equation}
 
-where $\bm{x}={x_1,\dots,x_{D}}$ are the features of the studied plant $X$,  and
+where $\bm{x}=\{x_1,\dots,x_{D}\}$ are the features of the data $x$,  and
 $\bm{\mu}_c=\{\mu_{c,1},\dots,\mu_{c,D}\}$
 
 \[
-\Sigma_{c}=
+\bm{\Sigma}_{c}=
 \begin{bmatrix}
     \sigma_{c,11} & \sigma_{c,12} & \sigma_{c,13} & \dots  & \sigma_{c,1D} \\
     \sigma_{c,21} & \sigma_{c,22} & \sigma_{c,23} & \dots  & \sigma_{c,2D} \\
     \vdots & \vdots & \vdots & \ddots & \vdots \\
     \sigma_{c,D1} & \sigma_{c,D2} & \sigma_{c,D3} & \dots  & \sigma_{c,DD}
-\end{bmatrix}\],
+\end{bmatrix},\]
 
-are the mean and covariance of the feature distribution of plant $c$ and $D$ is the number of features that describes the plant. $\sigma_{c,ab}$ is calculated as $E[X_aX_b]-\mu_a\mu_b$. To get the reversed conditional probability, i.e. the probability for beloning to class $c$ given the input $x$ we use bayes theorem,
+are the mean and covariance of the feature distribution of data $c$ and $D$ is the number of features describing the data. $\sigma_{c,ab}$ is calculated as $E[X_aX_b]-\mu_a\mu_b$. To get the reversed conditional probability, i.e. the probability for belonging to class $c$ given the input $x$ we use Bayes theorem,
 
 \begin{equation}
-P(C=c|X)= \frac{P(C=c)P(X|C=c)}{\sum_i{P(C=i)P(P(X|C=i))}}.
+P_X(C=c|x)= \frac{P(C=c)P_X(x|C=c)}{\sum_i{P(C=i)P_X(x|C=i)}}.
 \end{equation}
 
 The denominator will be omitted as it occurs for all classes and we are only interested in the relative probabilities between these. We will rank each class after taking the logarithm of each conditional probability and end up with the expression,
 
 \begin{equation}
-    R_c = -\frac{1}{2}ln{|\Sigma_c|}-\frac{1}{2}(\bm{x}-\bm{\mu}_c)^{T}\bm{\Sigma}_c^{-1}(\bm{x}-\bm{\mu}_c)+\ln{P(C=c)},
+    R_c = -\frac{1}{2}ln{|\bm{\Sigma}_c|}-\frac{1}{2}(\bm{x}-\bm{\mu}_c)^{T}\bm{\Sigma}_c^{-1}(\bm{x}-\bm{\mu}_c)+\ln{P(C=c)},
 \end{equation}
 
 and the selected class will be the one with the largest rank.
 
-\section{Feed forward nerual networks}
+\section{Feed forward neural networks}
 
-Something svm requirements. Here we will discuss a method to let the model determine its parameters and decision boundary using a combination of a simple activation function.
+The next algorithm, the feed forward neural network, can model the data using less assumptions of the distribution of the data. In order to make clear why this is the case, we will begin by describing a simpler regression model first which it is built upon.
 
 \subsection{Logistic regression}
 
-\section{linear regression}
-
-Model class $y=f(x;\omega)$, where $f$ uses numerical parameters $\omega$ to map input vector $x$ to predicted output $y$. During the learning, reduce the discrepency of target $t$ to $y$.
-
-for regression, minimize a energy function $\frac{1}{2}\left(y-t\right)^2$, the closer the output $y$ is to the target, the smaller the energy. Classification problems, where the output is a descreet number curresponding to the class, can be translated from a regression model, where the selected class is the closest class from the continous output. This makes classification algorithms easier to train as we have a continous space and the involving functions are easier to
-differentiate.
+For logistic regression we want to model a function $y=f(\bm{x};\bm{\omega})$, where $f$ uses numerical parameters $\omega$ to map input vector $\bm{x}$ to predicted output $y$. During the training of this function, we want to reduce the discrepancy of a target $t$ to $y$. This discrepancy comes in the form of an energy function $\frac{1}{2}\left(y-t\right)^2$, the closer the output $y$ is to the target, the smaller the energy. This model can later be extended to classification problems, where the output is a discreet number corresponding to a class instead of a continuous output space. The use of this type of algorithm makes classification models easier to train as we have a continuous space and the inclusion of functions that are differentiate.
 
 \subsubsection{Linear boundary}
 
-Imageine that we want to sort a data set of two features that can be separated into two groups using a line. The coefficients for this line are $\bm{\omega}^{T}=[\omega_0,\omega_1, \omega_2]$ and to determine if a data points belongs to either groups, we simply determine the sign of the line parameters multiplied with the feature vector,
+Imagine that we want to sort a data set of two features that can be separated into two groups using a single line. The coefficients for this line are $\bm{\omega}^{T}=[\omega_0,\omega_1, \omega_2]$ and to determine if a data points belongs to either groups, we simply determine the sign of the line parameters multiplied with the feature vector, $\bm{x}$,
 
 \begin{equation}
-    y=\bm{\omega}^T\bm{x}=\omega_0+\omega_1 x_1 + \omega_2 x_2 \left\{
+    z=\bm{\omega}^T\bm{x}=\omega_0+\omega_1 x_1 + \omega_2 x_2 = \left\{
     \begin{array}{ccc}
-        Group\;1 & if & \geq 0 \\
-        Group\;2 & if & < 0 \\
+        Group\;2 & if & z \geq 0 \\
+        Group\;1 & if & z < 0 \\
     \end{array}
     \right. .
 \end{equation}
 
-If we we denote group 1 as 1 and group 2 as 0 we can use a step function,
+If we we denote group 1 as 0 and group 2 as 1 we can use a step function,
 
 \begin{equation}
-    y = H(\bm{\omega}^T\bm{x}) \; where H(z) =
+    y = H(\bm{\omega}^T\bm{x}) \;\;\; where \;\;\; H(z) =
     \left\{
         \begin{array}{ccc}
             1 & if & z \geq 0 \\
-            0 & if & x < 0 \\
+            0 & if & z < 0 \\
         \end{array}
     \right.
 \end{equation}
 
-so to make the model make predictions on this data set we only need to set the parameters of the line.
+which makes the classification easier to evaluate. The step function is not the only function which can be used. A logistic model can use other kinds of so called activation functions, but the form is most often of the type $y=g(z)$ where $z= \bm{\omega}^T\bm{x}$. So for the model to make predictions on this data set we only need to set the parameters of the line after choosing an activation function.\\
 
-\todv{More on the activation function}
-
-To train this model we will be in need of a continous function as we are going to use its derivative to optimize its parameters. The function we will choose will have to be symmetric around $(0,g(0)=1/2)$ so the model is not biased to one class or the other, and also in the range $[0,1]$. A good candidate is the logistic function,
+We can get the parameters for the model by training it, but for the training to proceed smoothly we will be in the need of a continuous function as we are going to use its derivative to optimize it. The function we will choose will have to be symmetric around $(0,g(0)=1/2)$ so the model is not biased to one class or the other, and also in the range $[0,1]$. A good candidate is the logistic function,
 
 \begin{equation}
     g(z) = \frac{1}{1+e^{-z}}
 \end{equation}
 
-which is the function that gave this model its name. One way to visualize this model is to use one so called logistic unit and its representation can be seen in Figure.~\ref{fig:logistic_unit}, where we have generalized the model to use $n$ inputs. The logistic unit outputs a value depending on the inputs its function it is called an activation function, since a low value means lw activity and the opposite for large values.
+which is the function that gave this model its name. One way to visualize this model is to use a so called logistic unit and its representation can be seen in Figure.~\ref{fig:logistic_unit}, where we have generalized the model to use $n$ inputs. The logistic unit outputs a value depending on the inputs to its activation function.
 
-\begin{figure}
-\centering
-\input{./figure/machine_learning/tikz/logistic_unit}
-\caption{\label{fig:logistic_unit}A logistic unit combines the inputs via the weights on the connection from the input to the unit. These weighted inputs are summed and are inserted to the activation function whose result is the output.}
+\begin{figure}[h]
+    \centering
+    \input{./figure/machine_learning/tikz/logistic_unit}
+    \caption{\label{fig:logistic_unit}A logistic unit combines the inputs via the weight on the connections from the input to the unit. The sum of the weighted inputs are inserted to the activation function whose result is the output of that unit. The red input, $x_0$, represents a bias node which always outputs the value of 1, but is still connected to the unit via a weight.}
 \end{figure}
 
-Unlike the discriminant classifier, we will use our data to update the parameters of the model rather than creating them. Instead the parameters will initially be randomsized and updated to better fit the model to the data. The model will be evaluated using a cost function which penalizes the model for making the wrong predictions. This cost function increases with increasing errors and the objective is to select parameters which minimizes this function.
+Unlike the discriminant classifier, we will use our data to update the parameters of the model rather than creating them. Instead the parameters will initially be randomized and updated to better fit the model to the data. The model will be evaluated using a cost function which penalizes the model for making the wrong predictions. This cost function increases with increasing errors and the objective is to select parameters which minimizes this function.
 
 \subsubsection{Gradient descent}
 
-One of the simplest methods to minimize a function $f(\bm{x})$ is to always change the parameters in a neighbourhood which decreases the function the most. The direction that decreses the function the fastest is in the opposite direction of the gradient, i.e. $-\nabla f(\bm{x})$. So if we continously let the parameters update towards the negative gradient it should eventually find a local minima. One requirement for this is that we are using a so called learning rate, $\alpha$, which is sufficiently small, if it is not then the parameters might be updated to much and 'overshoot' the minimum and start increasining again. The final form of the algorithm is,
+One of the simplest methods to minimize a function $f(\bm{x})$ is to always change the parameters in a neighbourhood which decreases the function the most. The direction that decreases the function the fastest is in the opposite direction of the gradient, i.e. $-\nabla f(\bm{x})$. So if we continuously let the parameters update towards the negative gradient it should eventually find a local minima. One requirement for this is that we are using a so called learning rate, $\alpha$, which is sufficiently small, if it is not then the parameters might be updated to much and 'overshoot' the minimum and start increasing again. The final form of the learning algorithm is,
 
 \begin{equation}
     \bm{x}_{n+1} = \bm{x}_n-\alpha \nabla f(\bm{x}_n),
 \end{equation}
 
-until convergence.
+that is, the new parameters is updated from the old ones and by going down the slope of parameter space, which it does until convergence.
 
 \subsection{Multiclass Optimization}
- $m classes$
-Until now, we have only discussed the logistic regression for comparing two classes. To generalize the model we will use a method called one-vs-all. As the name suggest we will, in turn, compare one class vs the rest, which is then done for all the different classes. The class which gets the largest rank from the activation function is then chosen as the correct one, and this is one other reason why we want a continous activation function, as we can compare how well the data fits the class by the result of the function. This means we are basically training $n$ different models and we can model this using several logistic units (Figure.~\ref{fig:multiple_logistic_units}), this is actually what we call a single layer neural networks, but more on this later.
+
+Until now, we have only discussed the logistic regression for comparing two classes. To generalize the model to use $m$ classes, we will use a method called one-vs-all. As the name suggest we will, in turn, compare one class vs the rest, which is then done for all the different classes. The class which gets the largest rank from the activation function is then chosen as the correct one, and this is one other reason why we want a continuous activation function, as we can compare how well the data fits the class by the result of the output. This means we are basically training $m$ different models and we can visualize this using several logistic units (Figure.~\ref{fig:multiple_logistic_units}), this is actually what we call a single layer neural networks, but more on this later.
 
 \begin{figure}
-\centering
-\input{./figure/machine_learning/tikz/multiple_logistic_units}
-\caption{\label{fig:multiple_logistic_units}Instead of only being connected to one logistic unit, the inputs are connected to all $m$ units representing each class. Each logistic unit $j$ are connected to the inputs by the weights $\omega_j$ and after the summation, the unit with the largest activation "wins".}
+    \centering
+    \input{./figure/machine_learning/tikz/multiple_logistic_units}
+    \caption{\label{fig:multiple_logistic_units} Instead of only being connected to one logistic unit, the inputs are connected to all $m$ units, each representing one class. Each logistic unit $j$ are connected to the inputs by the weights $\bm{\omega}_j$ and after the summation, the unit with the largest activation "wins".}
 \end{figure}
 
 \subsection{Non-linear Boundary}
 
-Previously we have only discussed how to optimize lines separating $m$ classes, but we would like to be able to create more complex boundries using non-linear functions. One way to create more complex boundries would be to include quadratic terms in the actication function, i.e. $z_m=\sum_i^n\omega_{m,i}x_i + \sum_i^n\sum_j^n\omega_{m,i,j}x_i x_j$. We can train such a model in the same way as the linear activation parameter function, but the limitation still lies in the choise of parameterization function, one might not be satisfied with the quadratic term and would like to include higher order terms. This sounds like a tedious task, and an algorithm which creates this parameterization function automatically seems like something to strive for.
+Previously we have only discussed how to optimize lines separating $m$ classes, but we would like to be able to create more complex boundaries using non-linear functions. One way to create more complex boundaries would be to include quadratic terms in the activation function, i.e. $z_m=\sum_i^n\omega_{m,i}x_i + \sum_i^n\sum_j^n\omega_{m,i,j}x_i x_j$. We can train such a model in the same way as with the linear activation parameter function, but the limitation still lies in the choice of the parametrization of the function and one might not be satisfied with the quadratic term and would like to include higher order terms. This sounds like a tedious task, and an algorithm which creates this parametrization function automatically seems like something to strive for.
 
-\subsection{feed forward neural networks}
+\subsection{Feed forward neural networks}
+\label{sec:ffnn}
 
-What we have done with the logistic regression is that we have tried to approximate a function which is able to separate the data from the different classes. We could actually first train a logistic regression model to approximate a function which we then use for training another logistic regression model which then seperates the data. This means we could use the first model to get a parameterization function which is used for the activation of the next one. So what we can do is create a network of regression models as in Figure.~\ref{fig:1hidden_nerual_network}.
+What we have done with the logistic regression is that we have tried to approximate a function which is able to separate the data from the different classes. We could actually first train a logistic regression model to approximate a function which we then use for training another logistic regression model which then separates the data. This means we could use the first model to get a parametrization function which is used for the activation of the next one. So what we can do is create a network of regression models as in Figure.~\ref{fig:1hidden_neural_network}.
 
 \begin{figure}
-\centering
-\input{./figure/machine_learning/tikz/nerual_network}
-\caption{\label{fig:1hidden_neural_network}Instead of only being connected to one logistic unit, the inputs are connected to all $m$ units representing each class. Each logistic unit $j$ are connected to the inputs by the weights $\omega_j$ and after the summation, the unit with the largest activation "wins".}
+    \centering
+    \input{./figure/machine_learning/tikz/nerual_network}
+    \caption{\label{fig:1hidden_neural_network} A feed forward neural network uses hidden layers of logistic units, which separates the output and input layers from each other. The input and hidden layers are connected by weights in the same manner as the hidden and output layers are.}
 \end{figure}
 
-Using one layer of regression sparates the data using straight lines, but as this could then be used as input to another layer it can be shown that using two layers can separate data using in a convex set. So using only a two layered network of logistic units we can separate data using complex boundires, but this is still not as general as we would want, we might want non convex sets to separate data. It can be shown
+Using one layer of regression sparates the data using straight lines, but this could be used as input to another layer. It can be shown that using two layers can separate data using with convex sets. By only using a two layered network of logistic units we can separate data using complex boundires, but this is still not as general as we would want, we might want non convex sets to separate data. It can be shown \cite{bishop_neural} that using a two layered network can approximate any function with arbitrary accuracy. This is what we wanted to begin with, to approximate a function which is the activation function to a logistic regression model. Thus, training a model which approximates a activation function using a two layered neural network connected to yet another layer can create general decision boundaries. So using a three layered neural network can separate data using general boundaries and is thus sufficiently deep for most machine learning tasks, but there is actually reasons why one would use other number of layers which we will discuss later.
 
-\todv{Reference here}
+\subsection{Backpropagation}
 
-that using a two layered network can approximate any function with arbritary accuracy. This is what we wanted to begin with, to approximate a function which is the activation function to a logistic regression model. Thus, train a model which approximates a activation function using a two layered neural network connected to yet another layer can create general decision boundires. So using a three layered neural network can separate data and is thus sufficiently deep for most machine learning tasks, but there is actually reasons why one would use other number of layers which we will discuss later.
-
-\subsection{backpropagation}
-
-We have yet to talk about how to these layers of logistic units or, as we will call it from now on, the neural network is trained. One could train one layer at the time, first train the first layer to approximate a linear separating function, which is fed to the layer which uses this function to approximate an arbitrary function, that is then used for the last layer. This process does not really work, since we do not know from the beginning which function we want to approximate, and if we did, we would not need this method at all. So we would need a method to update the layers simuntanously, depending on how the changes affect the other networks. What we really need to do is see how well the last layer classify the data, compute the result using an error or cost function and update this layer using gradient descent as before. The difference is that we want this update to go back to the previous layer as well, so we somehow get the error gradient for those units. They can then be updated also using the gradient descent, and send information backwards to the previous layer. This process continous until we have updated the input layer. The method that does this is called backpropagation, or error backpropagation, and it is not hard to imagine where it got its name, since the error is propagated through the network starting at the output, ending at the input.
-
-\todv{equations}
+We have yet to talk about how to these layers of logistic units or, as we will call it from now on, the neural network is trained. One could train one layer at the time, first train the first layer to approximate a linear separating function, which is fed to the layer which uses this function to approximate an arbitrary function, that is then used for the last layer. This process does not really work, since we do not know from the beginning which function we want to approximate, and if we did, we would not need this method at all. So we would need a method to update the layers simultaneously, depending on how the changes affect the entire network. What we really need to do is see how well the last layer classify the data, compute the result using an error or cost function and update this layer using gradient descent as before. The difference is that we want this update to go back to the previous layer as well, so we get the error gradient for those units as well. They can then be updated also using the gradient descent, and send information backwards to the previous layer. This process continues until we have updated the weights of the input layer. This method is called backpropagation, or error backpropagation, and it is not hard to imagine where it got its name, since the error is propagated through the network starting at the output, ending at the input.
 
 \section{Preprocessing}
+\label{sec:preprocessing}
 
-Now we have equipped us with the tools necessary to classify data to different groups, but we have a large part still before we can start applying machine learning to a real example. When we recieve data from some sensor, e.g. a camera, it is usually not in a format which we want to classify, we have to preprocess the data to fit our needs. Almost always we have to clean the data, any equipment will produce some kinds of noise, and depending on the amount of data we have for the training, this could be a huge problem as the model might learn the noise and not the actual trend behind it.\\
+Now we have equipped us with the tools necessary to classify data to different groups, but we have a large part still before we can start applying machine learning to a real example. When we receive data from some sensor, e.g. a camera, it is usually not in a format which we want to classify. We have to preprocess the data to fit our needs. Almost always we have to clean the data, any equipment will produce some kinds of noise, and depending on the amount of data we have for the training, this could be a huge problem as the model might learn the noise and not the actual trend behind it.\\
 
-Another preprocessing step could be to extract informative features, this could be features that we know are a part of distinguishing between different classes. Different features could be such as sizes or shapes of objects. This part of the preprocessing is called dimension reduction, and this part is used to try to separate only the essential information about the different classes. The preprocessing steps used in this thesis will be explained in the following chapters, and how we combine these will be discussed in Chapter.~\ref{cha:method}.
+Another preprocessing step could be to extract informative features, this could be features that we know are a part of distinguishing between different classes. Different features could be features such as sizes or shapes of objects. This part of the preprocessing is called dimension reduction, and is used to try to extract only the essential information about the different classes. The preprocessing steps used in this thesis will be explained in the following chapters, and how we combine these will be discussed in Chapter.~\ref{cha:method}.
 
 \section{Convolutional neural networks}
 
-The amount of preprocessing required is decreased with the amount of data availiable. If one would have a plethora of data one could teach a model what features to extract. This could be done using an unsupervised learning algorithm prior to the supervised one, or one can combine these to one large supervised learning algorithm. This is one of the reasons why one would considera a deeper network than a three layered neural networks. It is at this transition one start to usewhat is called deep learning, when the network, not only classifies the data, but also learn what features to consider for the classification. Using larger and larger networks increases the training time as the backpropagation needs to go through many layers, and it will take many more iterations to learn the features for the later parts of the networks. But given enough data, the network can learn effective features, albeit very abstract ones, that can't be explained in words.\\
+The amount of preprocessing required decreases with the amount of data available. If one would have a plethora of data, one could let a model learn itself what features to extract. This could be done using an unsupervised learning algorithm prior to the supervised one, or one can combine these to one large supervised learning algorithm. This is one of the reasons why one would consider a deeper network than a three layered neural networks. It is at this transition one start to use what is called deep learning, when the network, not only classifies the data, but also learn what features to consider for the classification. Using larger and larger networks increases the training time as the backpropagation needs to go through many layers, and it will take many more iterations to learn the features for the later parts of the networks. But given enough data, the network can learn effective features, albeit very abstract ones, that can't be explained in words or extracted using simple algorithms.\\
 
-For certain problems, there are reasons to use special kinds of arcitecthures of the network (the network above is called a fully-connected feed forward neural networks, due to that each layer is completely connected to the previous one and the data always goes from one layer to the next). E.g. when working with sequiental data there could be a reason to keep some information from the previous time step. Instead of increasing the number of inputs to include all of the previous time step, or even the one before it and further, one could keep the activations of the units from the previous timestep as an input to the unit as well as the new data. This kind of network is called a Recurrent Nerual Network (RNN), this kind of network works well when the input data has some temporal dimensions, such as music or stock market. Though, this thesis involvs information in images, which requires another type of network, namely Convolutional Neural Networks (CNN). A convolution is a way to reduce information in a neighburhood of a pixel to a single number, so it is a way dimension reduction and the mathematics behind convoltuions can be found in Appendix.~\ref{app:conv}. A convolution on an image could extract information about for example large changes in the images such as separation between different objects. So a convolutional neural networks begins with several layers of convolutions to learn special features in images, which is then followed by a normal fully-connected nerual network to separate the learnt features. The downside of this network is it requires a large quantity of quality images, atleast of the size $\approx 10000$ images for each class, which is many times more images than availiable for this project, though, te use of this could be the future of similar projects.
+For certain problems, there are reasons to use special kinds of architectures of the network (the network above is called a fully-connected feed forward neural networks, due to that each layer is completely connected to the previous one and the data always goes from one layer to the next). E.g. when working with sequential data there could be a reason to keep some useful information from the previous time step. Instead of increasing the number of inputs to include the previous time step as well, or even the one before it and further, one could keep the activations of the units from the previous time-step as an input to the unit as well as the new data. This kind of network is called a Recurrent Neural Network (RNN), and works well when the input data has some temporal dimensions, such as music or the stock market. Though, this thesis involves information in images, which requires another type of network, namely Convolutional Neural Networks (CNN). A convolution is a way to reduce information from a neighbourhood of a pixel to a single number, so it is a sort of dimension reduction. A convolution on an image could extract information about for example large changes in the images which separates different objects. So a convolutional neural networks begins with several layers of convolutions that extracts special features in images, which is then followed by a normal fully-connected neural network to separate the learnt features. The downside of this network is it requires a large quantity of quality images, atleast of the size $\sim 1000$ images for each class, which is many times more images than available for this project, though, the use of this could be the future of similar projects.

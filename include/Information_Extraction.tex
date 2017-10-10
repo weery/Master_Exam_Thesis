@@ -4,115 +4,102 @@
 \textit{"Ball is in your court"}
 \vspace{6ex}
 \end{center}
+\label{cha:Information_extraction}
 
-As discussed in section.~\ref{sec:preprocess} a large part of machine learning is process incomming data to a fromat which is suited for learning. In this chapter we will extract features which gives descriptions to different objects. This is the second part of the preprocessing following image preprocessing, in which it is assumed that the object at hand has been completely segmented from the background and a binary image has been produced.
+As discussed in Section.~\ref{sec:preprocessing} a large part of machine learning is processing incoming data to a format which is suited for learning. In this chapter we will extract features which describes different objects. This is the second part of the preprocessing following after image preprocessing, in which it is assumed that the object at hand has been completely segmented from the background and a binary image has been produced. The features used are similar as another master's thesis \cite{WeedClassification}.
 
 \begin{figure}
     \centering
     \input{./figure/information_extraction/tikz/data_to_classification}
-    \caption{\label{fig:logistic_unit}A logistic unit combines the inputs via the weights on the connection from the input to the unit. These weighted inputs are summed and are inserted to the activation function whose result is the output.}
+    \caption{\label{fig:data_to_classification} The path between acquiring images and a classified plant is not direct, it takes a stop at both pre-processing followed by the algorithm, which is the last stop in the link.}
 \end{figure}
 
 \section{Descriptive Object Features}
 
 \subsection{Size dependent features}
 
-One great start when classifying objects is to estimate its size, if the object is roughly the same size as a house then a classifier that is not proficient in differentiating bushes from trees, then the size could be the deciding factor. To use size as a feature, there is a need to calibrate lengths in an image, since we need to know what scale we are using. If a proper scale is not know then these features do not give any relevant information, but the algorithms for calculating different size features can be combined to create size independent features such as shape, which will be seen later.
+One great start when classifying objects is to estimate its size, if the object is roughly the same size as a house then a classifier that is not proficient in differentiating bushes from trees, using the size of the object could be the deciding factor. To use size as a feature, there is a need to calibrate lengths in an image, since we need to know what scale we are using. If a proper scale is not know then these features do not give any relevant information, but the algorithms for calculating different size features can be combined to create size independent features such as shape, which will be seen later.
 
 \subsubsection{Area}
 
-The area of the object is the most straight forward feature, since we only have to count the number of pixels occupied by the object times the area of a single pixel. Unless there is a calibrating length in the image there is no way to accuratelly calculate the area of the pixels, but if the images are taken from the same angle and height we can set it to one.
+The area of the object is the most straight forward feature, since we only have to count the number of pixels occupied by the object times the area of a single pixel. Unless there is a calibrating length in the image there is no way to accurately calculate the area of the pixels, but if the images are taken from the same angle and height we can set it to one.
 
 \subsubsection{Area Perimeter}
 
-The area of the object only determines how much space it occupies, but it does not contain any information about its shape, so to include some spatially aware features, the perimeter is included. The perimeter is simply the number of pixels that is in the set of the object pixels and also in a neighbourhood of the background.
+The area of the object only determines how much space it occupies, but it does not contain any information about its shape, so to include some spatially dependent features, the perimeter is included. The perimeter is simply the number of pixels that is in the set of the object pixels and also in a neighbourhood of the background.
 
-\subsubsection{Convex HUll}
+\subsubsection{Convex Hull}
 
 Another feature that determines the shape of the object is the convex hull, which is the smallest convex set of pixels that includes the entire object. A convex set is a set where a line between each set of elements is included in the set. So the convex hull is the same as the area plus the background "valleys" of the object.
 
 \subsubsection{Convex Hull Perimeter}
 
-Again, we include the perimeter of the previous feature. Since the convex hull fills the valleys of the object, the convex hull perimeter is always at maximum as large as the area perimeter
+Again, we include the perimeter of the previous feature. Since the convex hull fills the valleys of the object, the convex hull perimeter is always at maximum as large as the area perimeter.
 
 \subsubsection{Thickness}
 
-Lastly, we have a feature called thickness. The thickness is the number of times we have to apply the operation thinning described in appendix.~\ref{app:thinning} until convergence.
-
-\begin{comment}
-\begin{figure}[H]
-    \centering
-    \captionsetup[subfigure]{justification=centering}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \input{./figure/Information_Extraction/ObjectBackground}
-        \caption{}
-        \label{}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \input{./figure/Information_Extraction/ObjectArea}
-		\caption{}
-		\label{}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \input{./figure/Information_Extraction/ObjectAreaPerimeter}
-        \caption{}
-        \label{}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \input{./figure/Information_Extraction/ObjectConvexHull}
-		\caption{}
-		\label{}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \input{./figure/Information_Extraction/ObjectConvexHullPerimeter}
-        \caption{}
-        \label{}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \input{./figure/Information_Extraction/ObjectThickness}
-		\caption{}
-		\label{}
-    \end{subfigure}
-    \caption{}
-    \label{}
-\end{figure}
-\end{comment}
+Lastly, we have a feature called thickness. The thickness is the number of times we have to apply the operation thinning \cite{diProcessing} until it converges.
 
 \subsection{Size independent features}
+
+Unless we have calibrating lengths, the size dependent features can not be used, as we do not have any way to relate different object to each other. In order to avoid this problem, we create so called size independent features, which combines the different size features while also removing the length dependency.\\
+
+\textbf{Formfactor}
+
+\begin{equation}
+    formf = 4\pi\frac{area}{perim^2}
+\end{equation}
+
+\textbf{Elongatedness}
+
+\begin{equation}
+    elong = \frac{area}{thickness^2}
+\end{equation}
+
+\textbf{Convexity}
+
+\begin{equation}
+    convexity = \frac{convHullPerim}{perim}
+\end{equation}
+
+\textbf{Solidity}
+
+\begin{equation}
+    solidity = \frac{area}{convexity}
+\end{equation}
+
+\textbf{Area and Perimeter Moments}
+
+The different moments of the objects are the most mathematically heavy features we are using to describe them. The basis for calculating these is,
+
+\begin{equation}
+    \mu_{p,q} = \sum_x \sum_y (x-\bar{x})^p (y-\bar{y})^qI(x,y),
+\end{equation}
+
+where $\bar{x}$ and $\bar{y}$ are the mean position of the object in respective direction and $I(x,y)$ is the segmentation from Chapter.~\ref{chap:imgPro}. Since we are summing over all the pixels of the object, $\mu_{0,0}$ is the same as the area of the object and will be used to normalize the features,
+
+\begin{equation}
+    \eta_{p,q} = \frac{\mu_{p,q}}{\mu_{0,0}^{\gamma}},
+\end{equation}
+
+with $\gamma =(p+q+2)/2$ which is used to make sure the normalized features is dimensionless. The different $\eta$ features are still dependent on the orientation of the image and to get rotationally invariant features we will combine them to get several invariant moment measures,
+
+\begin{equation}
+    \begin{array}{rcl}
+        \Phi_1 & = & \eta_{2,0}+\eta{0,2} \\
+        \Phi_2 & = & (\eta_{2,0}-\eta{0,2})^2+ 4\eta_{1,1}^2 \\
+        \Phi_3 & = & (\eta_{3,0}-3\eta_{1,2})^2+(\eta_{0,3}-3\eta_{2,1})^2. \\
+    \end{array}
+\end{equation}
+
+These three measures can be applied to both the object and also the perimeter of the object.
+
+\subsection{Color Features}
+
 \subsubsection{Mean Color}
 
-Since images are represented using the three color channels, red, green, and blue, this feature is actually three. The mean of each channel is simply all the object pixels color value summed, and divided by the number of pixel, or here even by the area.
+Since images are represented using the three color channels, red, green, and blue, this feature is actually three different features. The mean of each channel is simply all the object pixel color values summed, and divided by the number of pixel.
 
-\subsubsection{Standard devisation color}
+\subsubsection{Standard Deviation of Colors}
 
 The standard deviation of the colors can also be included as some objects might have wider color ranges.
-
-\subsubsection{formfactor}
-
-\begin{equation}
-    elog = 4\pi\frac{area}{perim^2}
-\end{equation}
-
-\subsubsection{Elognatedness}
-
-\begin{equation}
-    elog = \frac{area}{thickness^2}
-\end{equation}
-
-\subsubsection{convexities}
-
-\begin{equation}
-    convexity = \frac{convHullPerim}{Perim}
-\end{equation}
-
-\subsubsection{solidities}
-
-\begin{equation}
-    solidities = \frac{area}{convexity}
-\end{equation}

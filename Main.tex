@@ -28,11 +28,11 @@
 % OTHER FRONTMATTER
 % List of figures (add to table of contents)
 \cleardoublepage
-\addcontentsline{toc}{chapter}{\listfigurename}
+%\addcontentsline{toc}{chapter}{\listfigurename}
 \listoffigures
 % List of tables (add to table of contents)
 \cleardoublepage
-\addcontentsline{toc}{chapter}{\listtablename}
+%\addcontentsline{toc}{chapter}{\listtablename}
 \listoftables
 
 
@@ -63,25 +63,27 @@
 %Discussion
 \input{include/Discussion}
 
-% CONCLUSION
-\input{include/Conclusion}
-
 % REFERENCES / BIBLIOGRAPHY
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Bibliography}
 \printbibliography
 
 \cleardoublepage
+%\begin{appendices}
 \appendix
+\renewcommand\chaptername{}
+%\renewcommand{\thechapter}{Appendix \Alph{chapter}}
+\renewcommand{\thesection}{\Alph{chapter}.\arabic{section}}
 \setcounter{page}{1}
 \pagenumbering{Roman}			% Capitalized roman numbering starting from I (one)
 
-\input{include/backmatter/filter}
-
-\input{include/backmatter/morph_oper}
+\titleformat{\chapter}[display]
+  {\Huge\bfseries\filcenter}
+  {{\fontsize{50pt}{1em}\vspace{-4.2ex}\selectfont\textnormal{Appendix \thechapter}}}{1ex}{}[]
 
 \input{include/backmatter/color_rep}
 
+%\end{appendices}
 \newpage
 \printindex
 

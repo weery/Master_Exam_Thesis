@@ -3,6 +3,7 @@
 
 This part extracts infromation from the course book Digital Image Processing, Gonzales \cite{diProcessing} unless other sources stated.
 
+
 \section{Primary Colors}
 
 The use of images is a great way of providing information visually. An image is represented by a rectangular grid where each cell, or hereafter pixel, emits light of a certain wavelength. When the color of each pixel is determined and is ready to be displayed, there is a problem of how to convey the color information from the source to the recipients eyes. On way would be to many different light sources for each pixel, where each source is responsible for a small region of wavelengths. This is problematic due to our wide range of visible colors and in order to reduce the number of light sources we need, these wavelength regions must be chosen with care. This problem is slightly simplified by the fact that our eyes consists of three different sensors that react to different wavelengths, and these are roughly equal to blue, green and red colors and their absorption can be seen in Fig.~\ref{fig:colorAbsorption}.
@@ -12,7 +13,7 @@ The use of images is a great way of providing information visually. An image is 
     \resizebox{0.49\textwidth}{!}{
         \input{./figure/appendix/color_rep/tikz/colorChannel}
     }
-    \caption{\label{fig:colorAbsorption}When incoming photons with different wavelengths $\lambda$ hits each receptor, they get excited depending on their ranges. The figure shows, not accurate ranges nor intensities, but illustrates a schematically the different ranges for the different colors. }
+    \caption{\label{fig:colorAbsorption}When incoming photons with different wavelengths $\lambda$ hits each receptor, they get excited depending on the receptors range. The figure illustrates, neither accurate ranges nor intensities, schematically the different ranges for the different colors. }
 \end{figure}
 
 These three colors, red, green, and blue are therefore called the \textit{primary colors} and will be the basis for image representations. There are two different ways of using these colors to provide the targeted color, in a additive or a subtractive manner. When adding the primaries we start with a completely black canvas and increase the intensity for each of the colors until we reach a white color. For the subtractive nature we start with a white canvas and determine how much of each color we want to subtract until a black color is reached. The difference between these can be thought of as absorption and emittance, and the distinction can be seen in Fig.~\ref{fig:color_arithmetic}.
@@ -32,9 +33,10 @@ These three colors, red, green, and blue are therefore called the \textit{primar
 		\caption{}
 		\label{fig:color_subtractive}
     \end{subfigure}
-    \caption{Combining colors can either be done additively  (\textit{(a)}: The normal \textbf{RGB} color space combines \textcolor{red}{red} and \textcolor{blue}{blue} to \textcolor{magenta}{magenta},\textcolor{blue}{blue} and \textcolor{green}{green} to \textcolor{cyan}{cyan}, \textcolor{green}{green} and \textcolor{red}{red} to \textcolor{yellow}{yellow}, and all three to white) or subtractively (\textit{(b)}: the \textbf{CMY} color space combines colors subtractively by removing the selected colors from a pure white color).}
+    \caption{Combining colors can either be done additively; (\textit{(a)}: The normal \textbf{RGB} color space combines \textcolor{red}{red} and \textcolor{blue}{blue} to \textcolor{magenta}{magenta},\textcolor{blue}{blue} and \textcolor{green}{green} to \textcolor{cyan}{cyan}, \textcolor{green}{green} and \textcolor{red}{red} to \textcolor{yellow}{yellow}, and all three to white or subtractively; \textit{(b)}: the \textbf{CMY} color space combines colors subtractively by removing the selected colors from a pure white color.}
     \label{fig:color_arithmetic}
 \end{figure}
+
 
 
 \section{Color Spaces}
@@ -93,13 +95,13 @@ In many computer vision applications there is a need to separate segments of ima
 		\caption{}
 		\label{fig:color_coordinate_hsi}
     \end{subfigure}
-    \caption{Different color spaces uses different coordinates to represent the color room. In \textit{(a)} we see the \textbf{RGB} color space which is spanned by orthonormal basis, whereas in \textit{(b)} which shows the \textbf{HSI} color space uses an angle, a radius and a height instead.}
+    \caption{Different color spaces uses different coordinates to represent the color room. In \textit{(a)} we see the \textbf{RGB} color room which is spanned by an orthonormal basis, whereas in \textit{(b)} which shows the \textbf{HSI} color space uses an angle, a radius and a height instead.}
     \label{fig:color_coordinate}
 \end{figure}
 
 \subsubsection{\textbf{RGB} to \textbf{HSI}}
 
-Converting between \textbf{RGB} and \textbf{HSI} is a non-linear transfrom and can thusly not be written in matrix form. In the following calculations the values in \textbf{RGB} space is written as $R, G, \text{and} B$ and \textbf{HSI} $H, S, \text{and} I$. Also a \textbf{RGB} color is assumed to be in $C_{RGB} \in [0,1]^3$ and \textbf{HSI} $C_{HSI} \in [0^{\circ},360^{\circ}]\times[0,1]^2$. The Hue component is an angle and trigonometric calculations are therefore necessary,
+Converting between \textbf{RGB} and \textbf{HSI} is a non-linear transform and can thus not be written in matrix form. In the following calculations the values in \textbf{RGB} space is written as $R, G, \text{and} B$ and \textbf{HSI} $H, S, \text{and} I$. Also a \textbf{RGB} color is assumed to be in $C_{RGB} \in [0,1]^3$ and \textbf{HSI} $C_{HSI} \in [0^{\circ},360^{\circ}]\times[0,1]^2$. The Hue component is an angle and trigonometric calculations are therefore necessary,
 
 \begin{equation}
 H = \left\{\begin{array}{ll}
@@ -192,25 +194,24 @@ The applicability of the \textbf{HSI} color space is hopefully evidently shown i
 		\caption{}
 		\label{fig:imgI}
     \end{subfigure}
-    \caption{It is not evident from the \textbf{RGB} representation of the \textbf{HSI} color image shown in \textit{(a)} that the colors can be grouped based on one color channel, but is clearer from the Hue channel in \textit{(b)}, which shows large groupings for different parts of the image. The Saturation channels shows occasional grouping in \textit{(c)} but is not as uniform as the Hue, and the Intensity in \textit{(d)} shows large variations.}
+    \caption{It is not evident from the \textbf{RGB} representation of the \textbf{HSI} color image shown in \textit{(a)} that the colors can be grouped based on one color channel, but is clearer from the Hue channel in \textit{(b)}, which shows large groupings for different parts of the image. The Saturation channels shows occasional grouping in \textit{(c)} but is not as uniformly throughout the image as the Hue, and the Intensity in \textit{(d)} shows large variations.}
     \label{fig:hsiChannels}
 \end{figure}
 
-
-\section{Color Indices using Near Infrared wavelengths}
+\section{Color Indices using Near Infra-red wavelengths}
 
 One great thing with using electromagnetic radiation (light) as a source of information is that we do not need to use wavelengths comprehensible to our brains. The implications of this gives us the ability to use light information from wavelengths outside the visible spectrum. This can be of immense help when gathering information from biological living things which usually function in certain ways due to physical or chemical consequences. To further explain this we realise that light affect biological cells by exciting its building components to a higher energy state, and if the energy in a photon does not lie within the range of the possible excitation energies, there is no reason for a cell to absorb that light. So the reason why we cannot see certain wavelengths is due to almost full reflectance of those energies in our eyes receptors, and the same is true for most biological molecules as they are of the same order of magnitude in size and should be affected by roughly the same wavelengths, albeit in different ways. If we could somehow capture the near infra red light ($\lambda \approx \unit[750-1400]{nm}$) we could "see" the healthiness of a plant as a sick and degenerate cells does not behave as a living, healthy one as the molecules starts to crumble and behave differently.
 
 \subsection{NDVI}
 
-\textbf{NDVI} or \textbf{N}ormalized \textbf{D}ifference \textbf{V}egetation \textbf{I}ndex is used to differentiate healthy vegetation from either unhealthy or sparse vegetation  sections\cite{ndviSource}. What enables the usage of this index is that active chlorophyll in plants strongly absorbs visible light and a living cell strongly reflects near infrared light as it can not use this energy internally, and absorbing it would cause overheating. On the other hand, inactive or dead chlorophyll does not absorb the visible light to the same degree whereas the cell reflects roughly the same amount of near infrared light even if the chlorophyll is degenerate. The index is calculated by the formula,
+\textbf{NDVI} or \textbf{N}ormalized \textbf{D}ifference \textbf{V}egetation \textbf{I}ndex is used to differentiate healthy vegetation from either unhealthy or sparse vegetation  sections\cite{ndviSource}. What enables the usage of this index is that active chlorophyll in plants strongly absorbs visible light and a living cell strongly reflects near infra-red light as it can not use this energy internally, and absorbing it would cause overheating. On the other hand, inactive or dead chlorophyll does not absorb the visible light to the same degree whereas the cell reflects roughly the same amount of near infra-red light even if the chlorophyll is degenerate. The index is calculated by the formula,
 
 \begin{equation}
 	\label{eq:ndvi}
 	NDVI = \frac{nR-VIS}{nR+VIS},
 \end{equation}
 
-where $nR$ is the near infrared index and $VIS$ is the representation of the visible light. This index ranges from -1 to +1 where a number close to +1 represents a healthy plant. Besides determining the health of plants, this index can also be used to determine what part of an image is a plant or not as a low index corresponds to sparse or no vegetation.
+where $nR$ is the near infra-red index and $VIS$ is the representation of the visible light. This index ranges from -1 to +1 where a number close to +1 represents a healthy plant. Besides determining the health of plants, this index can also be used to determine what part of an image is a plant or not as a low index corresponds to sparse or no vegetation.
 
 \subsection{SAVI}
 
@@ -242,23 +243,23 @@ where $s$ is yet another parameter, but is a equipment dependent parameter rathe
 
 \subsection{MSAVI2}
 
-The final Color index we will consider using the near infrared channel is completely parameter free, but the expression looks nastier. This new index is derived from \textbf{MSAVI} using recursion (the details will not be given here) and the final expression is calculated by,
+The final Color index we will consider using the near infra-red channel is completely parameter free, but the expression looks nastier. This new index is derived from \textbf{MSAVI} using recursion (the details will not be given here) and the final expression is calculated by,
 
 \begin{equation}
     MSAVI2 = \frac{\left(2nR+1-\sqrt{\left(2nR+1\right)^2-8\left(nR-VIS\right)}\right)}{2}.
 \end{equation}
 
-\todv{Use the indices for healthy and unhealthy plants,
-make new figure showing the comparisons}
+%\todv{Use the indices for healthy and unhealthy plants,
+%make new figure showing the comparisons}
 
 These four color indices can be seen in \Cref{fig:rgbVSnrgbNDVI,fig:rgbVSnrgbSAVI,fig:rgbVSnrgbMSAVI,fig:rgbVSnrgbMSAVI2}.
 
 \section{nRGB to RGB}
 
-Above it is mentioned that near infrared light can come to help in various image analysis problems. However, this does not come for free, unless having access to really special equipment, most image light sensors only provide three different channels for capturing. Thus, the inclusion of a new channel, near infrared, implies the exclusion of another. The simplest would be to change it with the red channel as it lies closest in wavelength. If viewed using the \textbf{RGB} format, the resulting image will most likely be very reddish in color as most materials reflect the near infrared light, the comparison can be seen in \Cref{fig:rgbVSnrgb1,fig:rgbVSnrgb2}
+Above it is mentioned that near infra-red light can come to help in various image analysis problems. However, this does not come for free, unless having access to really special equipment, most image light sensors only provide three different channels for capturing. Thus, the inclusion of a new channel, near infra-red, implies the exclusion of another. The simplest would be to change it with the red channel as it lies closest in wavelength. If viewed using the \textbf{RGB} format, the resulting image will most likely be very reddish in color as most materials reflect the near infra-red light, the comparison can be seen in \Cref{fig:rgbVSnrgb1,fig:rgbVSnrgb2}
 
 
-\todv{Use this image to show rgb and nrgb channels}
+%\todv{Use this image to show rgb and nrgb channels}
 \begin{figure}[H]
     \centering
     \captionsetup[subfigure]{justification=centering}
@@ -298,11 +299,11 @@ Above it is mentioned that near infrared light can come to help in various image
 		\caption{}
 		\label{fig:rgbVSnrgbMSAVI2}
     \end{subfigure}
-    \caption{}
+    \caption{Different color representations highlights different parts of images. In the top left we can see how the image looks like using a normal color in \textbf{RGB} and top right with the near-infra-red camera. The remaining images show the different indices, nDVI, SAVI, MSAVI, and MSAVI2, from left to right, middle to bottom.}
     \label{fig:rgbVSnrgb}
 \end{figure}
 
-In order to show the \textbf{nRGB} image we want to "simulate" it as it was an ordinary \textbf{RGB} image. So we want to move the wavelengths of the new channel to a targeted one. Mathematically this is done using a convolution, described in Chapter.~\label{chap:conv}, with convolving function, $\delta(x)$ where $x$ is the targeted channels mean. This modification, replacing the red channel with the near infrared channel can be seen in Figure.~\ref{fig:fig:nRGBtoRGBmod}.
+In order to show the \textbf{nRGB} image we want to "simulate" it as it was an ordinary \textbf{RGB} image. So we want to move the wavelengths of the new channel to a targeted one. Mathematically this is done using a convolution, described in Chapter.~\label{chap:conv}, with convolving function, $\delta(x)$ where $x$ is the targeted channels mean. This modification, replacing the red channel with the near infra-red channel can be seen in Figure.~\ref{fig:fig:nRGBtoRGBmod}.
 
 \begin{figure}[H]
     \centering
@@ -321,6 +322,6 @@ In order to show the \textbf{nRGB} image we want to "simulate" it as it was an o
         }
 		\caption{}
     \end{subfigure}
-    \caption{In \textit{(a)} we can see the capturing of light in the \textbf{nRGB} color space. In order to display it using \textbf{RGB} color channels, we need to modify the wavelengths to the ordinary of \textbf{RGB} colors. This modification of the near infrared channel is showns in \textit{(b)}.}
+    \caption{In \textit{(a)} we can see the capturing of light in the \textbf{nRGB} color space. In order to display it using \textbf{RGB} color channels, we need to modify the wavelengths to the ordinary of \textbf{RGB} colors. This modification of the near infra-red channel is shown in \textit{(b)}.}
     \label{fig:nRGBtoRGBmod}
 \end{figure}

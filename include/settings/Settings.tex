@@ -56,9 +56,10 @@
 
 % Chapter title settings
 \usepackage{titlesec}
+%\usepackage[titletoc]{appendix}
 \titleformat{\chapter}[display]
   {\Huge\bfseries\filcenter}
-  {{\fontsize{50pt}{1em}\vspace{-4.2ex}\selectfont \textnormal{\thechapter}}}{1ex}{}[]
+  {{\fontsize{50pt}{1em}\vspace{-4.2ex}\selectfont\textnormal{\thechapter}}}{1ex}{}[]
 
 
 % Header and footer settings (Select TWOSIDE or ONESIDE layout below)
@@ -118,3 +119,9 @@
 \usepackage{cleveref}
 \Crefformat{figure}{#2Fig.~(#1)#3}
 \usetikzlibrary{external}\tikzexternalize
+
+%\newcommand\backmatter{\appendix
+%\def\chaptermark##1{\markboth{%
+%\ifnum  \c@secnumdepth > \m@ne  \@chapapp\ \thechapter:  \fi  ##1}{%
+%\ifnum  \c@secnumdepth > \m@ne  \@chapapp\ \thechapter:  \fi  ##1}}%
+%\def\sectionmark##1{\relax}}

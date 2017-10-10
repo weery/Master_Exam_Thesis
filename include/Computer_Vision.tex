@@ -4,56 +4,43 @@
 \textit{"A picture is worth a thousand words"}
 \vspace{6ex}
 \end{center}
+\label{chap:imgPro}
 
-B4 machine learning, need to clean data. How extensive depends on the machine learning algorithm and the data. Often some kind of noise removal.
-
-\begin{itemize}
-    \item Basic information in images
-    \item Noise removal, e.g. smooting (introduce filters)
-    \item Image segmentation (color represenations)
-    \item image processing, (morphological operations)
-\end{itemize}
-
-
-Before considering using any machine learning algorithms for classification on images, there is often a need for some image preprocessing, except in some cases which will be discussed later in Chapter.\ref{chap:machine}. In order to give the algorithm as informative data as possible we want to extract the relevant parts of an image. To do this we need to consider what kind of information is present in images and how to use it.
+Before applying the data in the machine learning algorithms we need to clean the data we receive from the camera. The extent of the cleaning process depends on the learning algorithm and also the data itself.
 
 \section{Images}
 
-Images is a way to display large amount of data visually. An image is often represented using a one or many 2-dimensional matrices. The building stone of an image is a pixel, which is a vector of size, $d$, where $d$ is the number of matrices used by the image or also called $channels$. The values of the pixels are usually called the $intensity$ of the corresponding channel and are limited to a certain set of values, which could be either continous or discreet. The channels are usually represented using different colors and more often then not ny red, green and blue colors, more on this can be read in Appendix.~\ref{chap:color_rep}.
+Using images is a way to display large amount of data visually. An image is often represented using a one or many 2-dimensional matrices. The building stone of an image is a pixel, which is a vector of size, $d$, where $d$ is the number of matrices used by the image or also called channels, $c$. The values of the pixels are usually called the intensity, $I_c$, of the corresponding channel and are limited to a certain set of values, which could be either continuous or discreet. The channels are usually represented using different colors and more often then not by red, green and blue colors, more on this can be read in Appendix.~\ref{chap:color_rep}.
 
 \subsection{Information in images}
 
-The number of channels used by an image is called the $depth$ of the image, and is as mentioned above, often 3. It is also mentioned that the intensities in these channels are limited to a set and most file formats uses $\unit[8]{bits}$ to express these values, meaning each pixel contains $\unit[24]{bits}$.\footnote{Sometimes a fourth channel, the $alpha$ channel, is present in an image and thus a pixel contains $\unit[32]{bits}$ of information, but these extra bits do not carry any color information and will be omitted in this thesis.} This means that each pixel can contain any of $(2^8)^3=16777216$ different combinations of colors. The dimensions of the matrices of the image is usually of the order $~10^3$, meaning that there are a humongous different combinations of images. Surely there must be a way to classify the message of an image by the use of differnet layers of information.
+The number of channels used by an image is called the $depth$ of the image, and is as mentioned above, often 3. It is also mentioned that the intensities in these channels are limited to a set and most file formats, in which the images are stored, uses $\unit[8]{bits}$ to express these values, meaning each pixel contains $\unit[24]{bits}$.\footnote{Sometimes a fourth channel, the $alpha$ channel, is present in an image and thus a pixel contains $\unit[32]{bits}$ of information, but these extra bits do not carry any color information and will be omitted in this thesis.} This means that each pixel can contain any of $(2^8)^3=16777216$ different combinations of colors. The dimensions of the matrices of the image is usually of the order $~10^3$, meaning that there are a vast amount of different combinations of images. Surely there must be a way to classify the message of an image by considering different layers of information.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.25\textwidth]{figure/computer_vision/images/first.png}
     \includegraphics[width=0.25\textwidth]{figure/computer_vision/images/overlap.png}
     \includegraphics[width=0.25\textwidth]{figure/computer_vision/images/second.png}
-    \caption{\label{pic:overlap} Above we see two binary images of size $28 \times 28$ that represents the digit 5. Individually there is no ambiguity of their illustrations, but studying their overlap in the middle picture they might as well come from different classes as the conjoined sections are far smaller than the secluded parts.}
+    \caption{\label{pic:overlap} Above we see two binary images of size $28 \times 28$ that both shows one representation of the digit 5. Individually there is no ambiguity of their illustrations, but studying their overlap in the middle picture they might as well come from different classes as the conjoined sections are far smaller than the secluded parts.}
 \end{figure}
 
-A image with a message does not carry pixels independant of each other, in Cref{pic:overlap} we can see two different images both containing enough information to convey a digit 5. So the images must contain more information than what is given by the individual pixels, the position of these must also play a role. Therefore we need to distinguish different parts of the image before we can be sure of its representaion. These parts will be divided into three categories,
+An image with a message does not carry pixels independently of each other, in Cref{pic:overlap} we can see two different images both containing enough information to convey a digit 5. So the images must contain more information than what is given by the individual pixels, the position of these must also play a role. Therefore we need to distinguish different parts of the image before we can be sure of its representation. These parts will be divided into three categories,
 
 \begin{itemize}
-    \item \textbf{Global}: all pixels must be considered simuntanously to carry a message.
+    \item \textbf{Global}: All pixels must be considered simultaneously to carry a message.
     \item \textbf{Regional}: Only a subsection of the image is important for classification.
     \item \textbf{Local}: The individual pixel information is important.
 \end{itemize}
 
-and a combination of the regional and local parts will often be used. As we saw earlier in the example with the digits, the regional of the white pixels were the important ones to see what the image showed and its regional and not global, since a linear transformation of the white pixels would not change the characteristics.
-
-\section{Image nosie removal}
-
-gonzales 10.3.4
+and a combination of the regional and local parts will often be used. As we saw earlier in the example with the digits, the regional information of the white pixels were the important ones to see what the image showed and it's regional and not global, since a linear transformation of the white pixels would not change the characteristics.
 
 \section{Image segmentation}
 
-In order to extract useful information from an image, we need to segment the image into the parts we want to extract information for, e.g. if we want to study a plant in a field we need to remove the background dirt.
+In order to extract useful information from an image, we need to segment the image into the parts we want to extract information for, e.g. if we want to study a plant in a field we need to remove the background dirt. So we need some way of extracting the local and regional information from the global.
 
 \subsection{Histogram-based thresholding}
 
-If the part of the image is fundamentally different from the rest of the image, e.g. a white cloud on a blue sky, we can use a technique of thresholding. In thresholding, we represent the image using only one intensity, i.e. only one channel, and creates a threshold value, $T_I$. Using this threshold we create a binary image where 1 represents the distinct part of the image and 0 the indistinct part of the image using,
+If the interesting part of the image is fundamentally different from the rest of the image, e.g. a white cloud on a blue sky, we can use a technique called thresholding. In thresholding, we represent the image using only one intensity, i.e. only one channel, and creates a threshold value, $T_I$. Using this threshold we create a binary image where 1 represents the distinct part of the image and 0 the indistinct part of the image using,
 
 \begin{equation}
     I_S(x,y)=\left \{ \begin{array}{ll}
@@ -63,24 +50,23 @@ If the part of the image is fundamentally different from the rest of the image, 
     \label{eq:thresholding}
 \end{equation}
 
-Choosing this threshold might be trivial for some images, e.g. images which have a bright and a dim region, but sometimes the intensities are very close or even overlapping. So in order to make the different part easily separable one would need to represent the image intensities using a non-trivial transformation from the different inputs. E.g. separating a green plant from a brown background could use the color information to separate these, but both parts might have some overlapping of the color channels. Instead we can transform the three channels, Red, Green, and Blue to another index which separates the color information, which is done by converting the RGB color to HSI color space. Details of this transformation can be found in Appendix.~\ref{app:color}. The Hue index of this color space carries is the only index carrying information of which color it represents, which makes it an excelent choise for separating objects of different colors. To select the threshold we will then use a method called adaptive global theshold. The histogram of the intensities is first plotted, which should show two decently separated sections and a value between the two regions peaks should be selected as an initial estimate of the thresold.
+Choosing this threshold might be trivial for some images, e.g. images which have a bright and a dim region, but sometimes the intensities are very close or even overlapping. So in order to make the different part easily separable one would need to represent the image intensities using a non-trivial transformation from the different inputs. E.g. separating a green plant from a brown background could use the color information to separate these, but both parts might have some overlapping of the color channels. Instead we can transform the three channels, red, green, and blue to another index which separates the color information, this is done by converting the RGB color to HSI color space. Details of this transformation can be found in Appendix.~\ref{app:color}. The Hue index of this color space is the only index carrying information of which color it represents, which makes it an excellent choose for separating objects of different colors. To select the threshold we will then use a method called adaptive global threshold. The histogram of the intensities is first plotted in a graph, which should show two decently separated sections and a value between the two regions peaks should be selected as an initial estimate of the threshold.
 
-Using Equation.~\eqref{eq:thresholding} we will get two different groups and the mean values of the intensities in respective group should be calculated. The threshold is then updated to be the mean of the means, which will procedurally produce better and better  estimates for the separating threshold, and the procedure will stop at convergence or when the threshold updates less than a targeted change $\delta T$. An example can be seen in Figure.~\ref{fig:adaptiveThreshold}.
+Using Equation.~\eqref{eq:thresholding} we will get two different groups and the mean values of the intensities in respective group should be calculated. The threshold is then updated to be the mean of the means, meaning we should end up with with a threshold right between the two peaks. This will procedurally produce better and better estimates for the separating threshold, and the procedure will stop when it has converged or when the threshold updates less than a targeted change $\Delta T$. An example can be seen in Figure.~\ref{fig:adaptiveThreshold}.
 
 \begin{figure}
     \centering
     \input{./figure/computer_vision/tikz/adaptive_threshold}
-    \caption{\label{fig:adaptiveThreshold}The initial threshold guess, $T_1$, is too far to the left which is adjusted to $T_2$ after one iteration of the adaptive global thresholding algorithm.}
+    \caption{\label{fig:adaptiveThreshold}The initial threshold guess, $T_1$, is too far to the left for properly segment the two peaks. The threshold is adjusted to $T_2$ after one iteration of the adaptive global threshold algorithm.}
 \end{figure}
-
 
 \section{Image processing}
 
-More often than not, the image thresholding is not enough to completely separate the object from the background. Often there is other objects that are of similar color that came as a side product of the thresholding and also parts of the object might not perfectly separated. This part of the chapter will deal with the post processing of the image thresholding. Here we will use tools from a mathematical concept called morphological operations, where the details can be found in Appendix.~\ref{App:morph}. These operations will also be useful in the next chapter where we will extract useful information of the object obtained after this post-process.
+More often than not, the image thresholding is not enough to completely separate the object from the background. Often there is other objects that are of similar color that come as a side product of the thresholding and also parts of the object might not perfectly separated. In this section we will deal with the post processing of the image thresholding. Here we will use tools from a mathematical concept called morphological operations. These operations will also be useful in the next chapter where we will extract useful information of the object obtained after this post-process.
 
 \subsection{Separated parts connection}
 
-The first part of the post-processing will be to connect separated parts of the object, and the concept is to make all the objects found using the thresolding slightly larger, after which the parts of the desired should be connected. We apply the morphological operation, dilation, to the previously aquired binary image using a $3x3$ structure element,
+The first part of the post-processing will be to connect separated parts of the object that are close to each other, and the concept is to make all the objects found using the thresholding slightly larger, after which the parts of the desired should be connected. We apply the morphological operation, dilation, to the previously acquired binary image using a $3x3$ structure element,
 
 \begin{equation}
     SE=\left[
@@ -93,21 +79,14 @@ The first part of the post-processing will be to connect separated parts of the 
     \label{eq:se}
 \end{equation}
 
-\todv{bild på hur det kan gå till}
-
-
 \subsection{Connected components}
 
 When we have connected the different parts of the object we want to extract the object by itself. We will do this by using the so called connected components, the general idea is to find different parts of the binary image which are connected with each other, and then the component which occupies the largest portion of the image should be our desired object. The idea is to search through the whole image, checking whether two neighbouring pixels belong to the foreground, and then set them as the same connected component. The binary image should then contain different clusters belonging to different groups.
 
-\todv{bild som visar olika färger på olika grupper}
-
 \subsection{Hole filling}
 
-We started this post-processing by connecting separated parts of the object, and then we extracted the object from other objects, but the result might still not represent the whole object as there might be some small sections that was not captured by the dilation process. WE would like to will these holes to get a complete solid object. THis procedure is quite simple, we start by inverting the image, i.e. the white pixels are now black and vise versa. we then extract the connected compoenents. All the holes in the object should now be in different groups, and since we know that all the holes are inside the object, none of them are at the border of the image. So to remove all the connected components which does not represent the holes have pixels at the boundries of the image. Removing these will make sure only the holes are remaining, and to get the final result we add the images together.
+We started this post-processing by connecting separated parts of the object, and then we extracted the object from other objects, but the result might still not represent the whole object as there might be some small sections in it that was not captured by the dilation process. We would like to fill these holes to get a completely solid object. This procedure is quite simple, we start by inverting the image, i.e. the white pixels are now black and vice versa. Then we extract the connected components. All the holes in the object should now be in different groups, and since we know that all the holes are inside the object, none of them are at the border of the image. So removing the connected components which has pixels at the borders will make sure only the holes are remaining, and to get the final result we add the images together.
 
-\todv{ännu en bild}
+\subsection{Object contraction}
 
-\subsection{object shrinkage}
-
-We started this process by making the object slightly larger by the dilation operation, and to finalize it we will reverse this operation to remove the border that does not belomng to the object. So as the last part of the post-processing part is to apply the opposite of the dilation, namely the erosion, using the same structure element from \eqref{eq:se}.
+We started this process by making the object slightly larger by the dilation operation, and to finalize it we will reverse this operation to remove the border that does not belong to the object. So as the last part of the post-processing part is to apply the opposite of the dilation, namely the erosion, using the same structure element from \eqref{eq:se}.

@@ -5,102 +5,104 @@
 \textit{"Actions speak louder than words"}
 \vspace{6ex}
 \end{center}
+\label{cha:method}
 
 \section{Data aquisition}
 
-\begin{itemize}
-    \item Data
-    \begin{itemize}
-        \item Aquisition
-        \item Instruments
-        \item Preprocessing
-    \end{itemize}
-    \item Methods
-    \begin{itemize}
-        \item Feature selection
-        \item Algorithm evaluation
-    \end{itemize}
-\end{itemize}
+This project deals with classification on two different data sets, one that is quantitative and the other qualitative. These different datasets are labeled differently and will be processed in different manners. The qualitative data set has been provided from the examiner as a test set from a previous masters thesis by M. Andersson \cite{WeedClassification}. This set has been completely labelled and the images of the different plants are of the highest quality, containing a small amount of noise. It is on this set the supervised learning will be applied as the whole process from pre-processing to features is streamlined. The images are separated into 8 plants, 1 crop, carrot, and 7 weeds, chickweed, fumitory, goose-foot, mayweed, polygonum, spergula, and thistle.\\
 
-This project classifies data on two different scales, one that is quantitative and the other qualitative. These different datasets are labeled differently and will be processed in different manners. The qualitative data set has been provided as a test set from a previous masters thesis by mAndersson \cite{m_nadersson}. This set has been completely labeled and the images of the different plants are of the highest quality, containing a small amount of noise. It is on this set the supervised learning will be applied as the whole process from pre-processing to features is streamlined. h
+The second data set deals with plants that are more naturally occurring. In the previous data set, other plants has been removed and only one plant per image is percent. This is hard to obtain in reality and images has been taken on  wheat fields without any alterations from the normal. The images here has been taken from different height and contains different amount of plants. Though, the labelling of these image is not as well done, mostly due to the large amount of images and large overlap of different plants. This data set is taken on wheat fields with several different classes of weeds, but we will not try and classify the kind of weed on this set, as the precise labelling has not been made for the individual plants.
 
-First part of the project is data acquisition, and currently there are two different desirable approaches, both with different advantages and disadvantages.\\
+\subsection{Mattias Andersson's data}
 
-One of the approaches would be to grow the crops and weeds oneself in a controlled environment, alongside with a "wild" grown field of unspecified weeds directly taken from a real field. This approach would give me complete control over the data, when it should be extracted but would yield a small database as I don't have neither the time nor the place nor knowledge go grow an entire field.\\
+The images that Mattias used for his master's thesis was taken at Skrekarhyttans Gård in Västmanland, Sweden. The images was taken in late June, which was approximately four weeks after the carrot plants was sown. One week after the carrots was planted, the entire field was burned to remove any weeds still present while the carrots was still in the ground and had not sprouted. This means that the weeds found afterwards had grown for about the same amount of time as the carrots and are roughly of the same size. \\
 
-The other would be to get in contact with a real farmer, taking continuous pictures from a real field. This could give direct feedback of the state of the field, as expert knowledge is in the vicinity. Although, having a "real life" dataset might seems desirable, I might have too little control of the environment, e.g. the farmer might be busy, the fields might be under some treatment which will alter the plants, and there might be some other uncontrollable factors.\\
+The plants in the field was sown in 162 rows and each sixth row was used for image acquisition. Each of these rows provided one plant of each class by randomizing the location in the row to search for the plants. When the desired plant was found, the area around (approximately 10 cm around it) it was cleaned by hand of other plants and noise. \\
 
-Regardless of the approach, the database will be obtained from the fields using a Canon S110 camera, which can give pictures in $4000 \times 3000 pixels$. To get as good pictures as possible, the camera will be mounted on a custom made tripod, which will give pictures from a desirable height.\\
+The images was taken from a tripod, using a Canon EOS500N camera, and the camera was mounted $\unit[45]{cm}$ above the ground pointing directly towards the ground. This ensured all the images was taken so that they covered the same $\unit[15]{cm}$ by $\unit[10]{cm}$ area of the ground with a ground pixel width of $\unit[0.195]{mm}$. The plant was covered with a white umbrella so that the images would be taken with the same light intensities. The resulotion of all images are 768*512 pixels.\cite{WeedClassification}
 
-When the dataset has been specified, a sequence of images over the same area for different times will be overlapped so a time-lapse of the plants will be available. This is a non trivial task if done autonomously as is desirable since the project should be able to scale. The method that will be used for this process is image warping and matching. Possible problems that might occur is that the images are taken to far from each other in time that the images are too different, and some preprocessing might be used if this is the case.\\
+\subsection{Quantitative data set}
 
-The next part is image segmentation in order to extract the parts of the pictures which represents the different plants. The first part of this process is to take into account of the color channels in the image, since the plants usually have a distinct green color against the background soil which is usually in a brownish color which consist of a heavy redness. Then different edge detection methods will be used, such as applying a laplacian filter, in order to differentiate plants that resides close to each other.\\
+The images taken for this thesis was taken on several wheat fields around Vikingstad, Östergötland, Sweden. These images was taken with less precision and pre work than in Mattias' work. The images was gathered during two different occasions, one in October 2016 and one in April 2017. The images taken in 2016 was supposed to be a test set to see how a field might look like and to test algorithms on and later a much larger data set was supposed to be acquired using a drone which would take images from a much larger distance. Since the surveillance law in Sweden made it inconvenient to use drones with a camera, this method was discarded. Instead the data set acquired in April focused more on the individual plants, albeit not on the same level as Mattias, and the pictures was taken closer to the ground. \\
 
-When the position of each plant is determined, it is time to perform two classification problems on the dataset. The first is a binary classification, is the plant a crop or a weed, and the second is only performed on the weeds given from the first classification. During this part the kind of weed should be determined. Given the distinct features in each of these classes different methods will be considered. If the features is easily distinguished between the classes, e.g. shape and color, then classification methods such as linear or quadratic discrimination will be considered as well as support vector machines. If the classification part seems to be more complex, a machine learning approach be more appropriate, such as a convolutional neural network. This approach is actually preferable as it is easier to scale to include more classes in the future, but I might be limited by the amount of data accessible, since this approach requires a large amount of data.\\
+Most of the images taken during the 2016 run was at eye level $\approx\unit[180]{cm}$, meaning that the images spanned over a large area compared to the closer images from 2017, which was taken from about $\unit[50]{cm}$. For this data set, an exact distance from the ground was never intended, and this is mostly due to that it would be impractical to build an application with requirements to acquire images using exact dimensions. Also, for this data set, the fields was not altered in any way in regard to get clean data. This is also with an application in mind, as the goal of this project is to be able to give information of the current state of the field. \\
 
-\section{Instruments}
+The focus has not been on the individual plant, as opposed to Mattias' data, and the images is therefore not classified for one plant individually. Though, the images has been taken on some important weeds, including (but not limited to), mayweed, cornflower, shepherd's purse, field pennycress, cleavers, chickweed, and the crop included in all images are wheat as opposed to Mattias' carrots.\\
 
-Basically, the only instruments used for this project is the cameras which the iamges was aquired with. The qualitative test set was provided from another master thises\cite{mansersson}, and the iamges was taken with a CANNON SOMETHING. The quantitatve data set was aquired using CANON ANNAN camera with a near infrared channel instead of the red.
+This data set was acquired using a Canon S110 camera, which takes images of 4000 by 3000 pixels. This camera is rather special, it does not absorb red light, but rather uses near infra-red as its third channel. This is mostly used for projects where one would want to know the health of crops, and it was one of the parts of the FarmDrones project, and the extension to use it in this thesis seemed to be of interest.\\
+
+These images has been taken in collaboration with the agricultural advisers at lovanggruppen. Different fields with winter wheat planted was visited and different parts with varying densities of weeds has been studied.
 
 \section{Preprocessing}
 
-From the two different cameras we have two different types of images. The first one from the previous master's thesis is a very clean data set. It does not contain much noise from other object than those being
+From the two different cameras we have two different types of images. The first one from the previous master's thesis is a very clean data set. It does not contain much noise from other object than those being considered and the features from Chapter.~\ref{cha:Information_extraction} can be extracted. The features gained is of different scales, and in order to give the learning algorithm a fighting chance for a good classification, we need to normalize the data so they are roughly of the same size. This is done by both removing the mean of all the features whilst dividing by the standard deviation,
 
+\begin{equation}
+    \tilde{\bm{x}} = \frac{\bm{x}-Mean(\bm{x})}{Std(\bm{x})}.
+\end{equation}
+%^\tilde
 
+This part is a requirement so that the gradient descent does not favour any feature better than the others.\\
 
-\section{Algorithm evaluation}
+ The other data set will use other algorithms and will not use the features altogether, and does not require preprocessing.
 
 \section{Feature selection}
 
-In the previous chapter.~\ref{Information_extraction} we introduced a plethora of features for object recognition, but not all of these are relevant for the classification or might even be worsening the results. There are several ways to obtain a good combination of features using different techniques.
+In the previous Chapter.~\ref{cha:Information_extraction} we introduced a plethora of features for object recognition, but not all of these are relevant for the classification or might even be worsening the results. There are several ways to obtain a good combination of features using different techniques.
 
 \subsection{Forward selection}
 
-Forward selection is a very straight forward technique of choosing features, it does not retrieve the best combination but it sacrifices the absolut best for speed. One starts with the single feature which gives best result to the algorithm and then combining this feature with every other feature. The combination which yields the best result is selected for the next pass of the selection. The selection continues by testing the previous combination with every non-selected feature, progressively combining more features and decreasing error-rates. The number of features is then selected when the error-rates start to increase again or after a set number of features.
+Forward selection is a very straight forward technique of choosing features, it might not retrieve the best combination but it sacrifices the absolute best for speed. One starts with the single feature which gives best result to the algorithm and then combining this feature with every other feature. The combination which yields the best result is selected for the next pass of the selection. The selection continues by testing the previous combination with every non-selected feature, progressively combining more features and decreasing error-rates. The number of features is then selected when the error-rates start to increase again or after a set number of features.
 
 \subsection{Backward selection}
 
-Backward is as the name suggest the same as forward selection but in reverse. Instead of starting with one feature and add one each pass, we start with all features and remove the one that changes the error-rate the most. This method works when using all features provides superflous information and only provides negative impact on the classification.
+Backward is as the name suggest the same as forward selection but in reverse. Instead of starting with one feature and add one each pass, we start with all features and remove the one that changes the error-rate the most. This method works when using all features provides superfluous information and only provides negative impact on the classification.
 
 \subsection{Best combination}
 
-Instead of progressively add/subtract one feature, the best combination tests all possible combination of features at each number of features. This method ensures to find the absolutely best combination as it testa all cases, but the down side is that is very computationally expensive.
-
-\subsection{Principal component analysis}
-
-det som ska användas till neurala nätverk
+Instead of progressively add/subtract one feature, the best combination tests all possible combination of features at each number of features. This method ensures to find the absolutely best combination as it tests all cases, but the down side is that is very computationally expensive.
 
 \section{Algorithm Evaluation}
 
-To make sure an algorithm is mature enough for the real world we need to know how well it performs on data it has not seen before, that is how well it has learned the underlying structure of the data. This can not be done without extra data as presenting it with the same data as it has been trained for is superflous, it is like studiying for an exam by reviewing only previous tests without considering the background theories. In order to simulate this real world senario we will only show the model a certain set of the data and only after the training is done it will see the rest. This makes sure the model can be evaluated on data is has not been trained on and also gives us a way to measure how well it has generalised the problem.
+To make sure an algorithm is mature enough for the real world we need to know how well it performs on data it has not seen before, that is how well it has learned the underlying structure of the data. This can not be done without extra data as presenting it with the same data as it has been trained for is superfluous, it is like studying for an exam by reviewing only previous tests without considering the background theories. In order to simulate this real world scenario we will only show the model a certain set of the data and only after the training is done it will see the rest. This makes sure the model can be evaluated on data is has not been trained on and also gives us a way to measure how well it has generalised the problem.
 
 \subsection{Training and validation sets}
 
-For the quadratic discriminant classifier, the parameters for the model is directly related to the data used for training it. It would not be possible how well the model has generalised the data using the availiable data. To get an estimate how well the problem has been modeled it is common to separate the training data in a training and a validation set, where the training set is only used for the training process and the validation set is used to validate the current training. This ensures the model is tested on new data. One problem, though, is when the model is dependent on hyperparameters such in the case of the nerual networks with its activation function, network types and number of layers. If one would separate the availiable data in training and validation sets, and then select the hyperparameters which gives the best result for the validation set, one has basically overfitted the problem to match the validation set.
+For the quadratic discriminant classifier, the parameters for the model is directly related to the data used for training it. It would not be possible to determine how well the model has generalised the data using the available data. To get an estimate of how well the problem has been modelled it is common to separate the training data in a training and a validation set, where the training set is only used for the training process and the validation set is used to validate the current training. This ensures the model is tested on new data. One problem, though, is when the model is dependent on hyperparameters such in the case of the neural networks with its activation function, network types and number of layers. If one would separate the available data in training and validation sets, and then select the hyperparameters which gives the best result for the validation set, one has basically overfitted the problem to match the validation set.
 
 \subsubsection{Training, validation, and test sets}
 
-The most common way to evaluate the performance of an nerual network is to divide the data set in not only two but three different sets; namely training, validation and test sets. The network is trained on the training set for a number of epochs, and then evaluated on the validation set. This continues as long as the validation error continues to decrese, but can start increase again while the training error is sill declining. The reason for this is that the model has stopped learning the general features of the data sets and start to overfit the training data. This gives a well defined stop criterion for the training of the network, and the epoch of the network which minimizes the validation set for that specific set of hyperparameters is then tested on the test set. Choosing the epoch which minimizes the validation set and choosing the hyperparameters which minimimizes the test set gives ensures that the model has neither overfitted the training data nor overfitted the hyperparameters for the validation.\\
+The most common way to evaluate the performance of an neural network is to divide the data set in not only two but three different sets; namely training, validation and test sets. The network is trained on the training set for a number of epochs, and then evaluated on the validation set. This continues as long as the validation error continues to decrease, but can start increase again while the training error is sill declining. The reason for this is that the model has stopped learning the general features of the data sets and start to overfit the training data. This gives a well defined stop criterion for the training of the network, and the epoch of the network which minimizes the validation set for that specific set of hyperparameters is then tested on the test set. Choosing the epoch which minimizes the validation set and choosing the hyperparameters which minimizes the test set gives ensures that the model has neither overfitted the training data nor overfitted the hyperparameters for the validation.\\
 
-Although this is the most common way to validate nerual networks, it is not the way we will validate the networks in this project. The reason is that we have to few data points to consider in the first place and to compare the nerual networks to the quadratic discriminant using different evaluation methods does not seem inviting. There is no reason to train the quadratic discriminant in this way as there are no hyperparameters in that model.
+Although this is the most common way to validate neural networks, it is not the way we will validate the networks in this project. The reason is that we have to few data points to consider in the first place and to compare the neural networks to the quadratic discriminant using different evaluation methods does not seem inviting. There is no reason to train the quadratic discriminant in this way as there are no hyperparameters in that model.
 
 \subsubsection{$K$-fold cross validation}
 
-Instead of dividing the data in three sets, we will keep the training and validation sets and use a method called, $K$-fold cross validation. This method is good for evaluating a model when there are a small number of training data or many features compared with the data. To use this method one would randomize the order of all the availiable data and assign them in $K$ different groups of the same size. The chosen model is then trained on $K-1$ of these folds and then evaluated on the last. This is repeated $K$ times, so that each fold has been the validation set once. The total error of the training is then the average over the $K$ different combinations. This process can be repeated over different hyperparameters to ensure those parameters model the entire data set and not just one combination of validation set.
+Instead of dividing the data in three sets, we will keep the training and validation sets and use a method called, $K$-fold cross validation. This method is good for evaluating a model when there are a small number of training data or many features compared with the data. To use this method one would randomize the order of all the available data and assign them in $K$ different groups of the same size. The chosen model is then trained on $K-1$ of these folds and then evaluated on the last. This is repeated $K$ times, so that each fold has been the validation set once. The total error of the training is then the average over the $K$ different combinations. This process can be repeated over different hyperparameters to ensure those parameters model the entire data set and not just one combination of validation set.
 
 \paragraph{Visual example of 3-fold cross validation}
 
 To give the reader a better understanding of the method, a visual example will be given here using $K=3$. The data is divided into three groups as seen in figure.~\ref{fig:dartWheel}. Each data point is then assigned a new random group and then the data is grouped together as in figure.~\ref{fig:randomWheel}.
 
 \begin{figure}[H]
-\centering
-\input{./figure/result/Quadratic/dartWheel}
-\caption{\label{fig:dartWheel} The simplest way to divide the data into several groups is just to select the groups in order.}
+    \centering
+    \input{./figure/result/Quadratic/dartWheel}
+    \caption{\label{fig:dartWheel} The simplest way to divide the data into several groups is just to select the groups in their original order.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \input{./figure/result/Quadratic/randomWheel}
 \input{./figure/result/Quadratic/orderedRandomWheel}
-\caption{\label{fig:randomWheel} To make the grouping stochastic, each number if assigned a new random group, while still ensuring the group sizes remain the same. The new groups can then be placed together for easy access.}
+\caption{\label{fig:randomWheel} To make the grouping stochastic, each number is assigned a new random group, while still ensuring that the group sizes remain the same. The new groups can then be placed together for easy access.}
 \end{figure}
+
+\section{Evaluation of Unsupervised Clustering}
+
+\label{sec:unsupervised_method}
+
+In Section.~\ref{sec:unsuper} we said that the unsupervised learning usually do not have labels during the training. This means that the evaluation of the algorithm requires input of the user and the performance of it is subjective. The data which the algorithm is applied to is in the form of an image and a way to estimate the performance, instead of manually labelling all the pixels, a number of points is randomly placed on the image. These points, containing color information of a single pixel each, are then labelled by the user and the algorithm is evaluated by the number of points that lies in the correct cluster, where each cluster is assigned the label of the most points for that group. The images that is considered by the clustering algorithm contains three major labels, namely noxious weed, crops and background. Another way to label the points would be first either plant or background, since the first step would be to separate the thing we want to classify, and then classify whether the plant is either crop or weed. The second method is called a decision tree and is easy to create more branches, but for simplicity here we will only consider the first case with three different labels. \\
+
+If we would use the result from this evaluation to retrain our model, then this would go under reinforced learning, since the user would help the model train again based on its input. Though, this method will only be used for evaluation of the chosen model and not as a part of its training.\\
+
+To make the training for the images transferable to other images, the k-means clustering will be performed on a joint image containing pixels from several images to introduce diverse data. The result of the clustering can then be transferred to other images using the same cluster centroids gained from the previous images. To determine what each cluster represents, we use the same images as in the clustering, and extract the labelled pixels from these. Each pixel, which is assigned to a group by the clustering algorithm, carries a label from the user. Each cluster then contains a number of labels from the different classes and the cluster is assigned the label that has the largest weighted rank. These numbers are weighted, by the inverse count of each label across the board, since they occur in the image of different frequency. E.g. if there is a low count of noxious weeds in an image, and a large amount of background pixels, then finding a noxious weed label in a cluster surely must mean more than finding a background label.\\

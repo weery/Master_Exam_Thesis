@@ -1,0 +1,120 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}[scale=0.5]
+
+\begin{axis}[%
+width=4.521in,
+height=3.53in,
+at={(0.758in,0.517in)},
+scale only axis,
+xmin=0,
+xmax=0.1,
+xlabel={Correct $\%$ Weeds},
+ymin=0,
+ymax=0.0775,
+ylabel={Estimated $\%$ Weeds},
+tick label style={/pgf/number format/fixed},
+scaled y ticks=false,
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Estimation of weed density},
+legend style={at={(0.03,0.97)},anchor=north west,legend cell align=left,align=left,draw=white!15!black}
+]
+\addplot [color=red,only marks,mark=x,mark options={solid}]
+  table[row sep=crcr]{%
+0.07	0.045\\
+};
+\addlegendentry{Training Data};
+
+\addplot [color=blue,only marks,mark=x,mark options={solid}]
+  table[row sep=crcr]{%
+0.03	0.0125\\
+};
+\addlegendentry{Test Data};
+
+\addplot [color=red,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.07	0.045\\
+};
+\addplot [color=red,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.1	0.0725\\
+};
+\addplot [color=red,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.095	0.0775\\
+};
+\addplot [color=red,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.0425	0.025\\
+};
+\addplot [color=red,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.0325	0.025\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.03	0.0125\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.025	0.0175\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.0425	0.02\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.0275	0.0125\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.04	0.025\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.0575	0.035\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.0325	0.0225\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.0375	0.015\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.04	0.02\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.035	0.02\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.06	0.0425\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.04	0.0225\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.0325	0.03\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.04	0.0325\\
+};
+\addplot [color=blue,only marks,mark=x,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+0.0525	0.04\\
+};
+\end{axis}
+\end{tikzpicture}%
